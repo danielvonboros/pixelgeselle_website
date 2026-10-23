@@ -1,4 +1,5 @@
 import Header from "./components/header/Header";
+import Examples from "./sections/examples/Examples";
 import Facts from "./sections/facts/Facts";
 import Hero from "./sections/hero/Hero";
 import Packages from "./sections/packages/Packages";
@@ -15,6 +16,7 @@ function App() {
         <Problems />
         <Process />
         <Packages />
+        <Examples />
       </main>
     </>
   );
