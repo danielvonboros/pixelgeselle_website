@@ -16,7 +16,7 @@ const Header = () => {
     >
       <Container maxWidth={false} sx={{ maxWidth: layout.maxWidth }}>
         <Toolbar disableGutters sx={{ minHeight: { xs: 64, md: 72 }, gap: 4 }}>
-          <Link href="#top" underline="none" aria-label="Pixelgeselle, zum Seitenanfang">
+          <Link href="/" underline="none" aria-label="Pixelgeselle, zur Startseite">
             <Logo size={26} />
           </Link>
           <Box sx={{ flex: 1 }} />
@@ -30,7 +30,7 @@ const Header = () => {
             {navItems.map((item) => (
               <Link
                 key={item.id}
-                href={`#${item.id}`}
+                href={`/#${item.id}`}
                 underline="hover"
                 color="inherit"
                 sx={{ fontSize: "0.9375rem", fontWeight: 500 }}
@@ -39,7 +39,7 @@ const Header = () => {
               </Link>
             ))}
           </Stack>
-          <Button variant="contained" href={`#${SECTION_IDS.booking}`}>
+          <Button variant="contained" href={`/#${SECTION_IDS.booking}`}>
             {ctaLabel}
           </Button>
         </Toolbar>

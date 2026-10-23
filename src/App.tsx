@@ -1,30 +1,17 @@
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
-import About from "./sections/about/About";
-import Booking from "./sections/booking/Booking";
-import Examples from "./sections/examples/Examples";
-import Facts from "./sections/facts/Facts";
-import Faq from "./sections/faq/Faq";
-import Hero from "./sections/hero/Hero";
-import Packages from "./sections/packages/Packages";
-import Problems from "./sections/problems/Problems";
-import Process from "./sections/process/Process";
+import { legalPages } from "./content/legal";
+import Home from "./pages/Home";
+import Legal from "./pages/Legal";
 
 function App() {
+  const path = window.location.pathname.replace(/\/$/, "");
+  const legalPage = legalPages.find((page) => page.path === path);
+
   return (
     <>
       <Header />
-      <main id="top">
-        <Hero />
-        <Facts />
-        <Problems />
-        <Process />
-        <Packages />
-        <Examples />
-        <About />
-        <Faq />
-        <Booking />
-      </main>
+      <main id="top">{legalPage ? <Legal page={legalPage} /> : <Home />}</main>
       <Footer />
     </>
   );
