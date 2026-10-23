@@ -87,6 +87,22 @@ yarn lint      run ESLint
 yarn preview   serve the production build locally
 ```
 
+### Deployment
+
+Every push to `main` builds the site and uploads `dist/` to all-inkl via rsync over SSH (`.github/workflows/deploy.yml`). Lint and build must pass, otherwise nothing is uploaded. A second push cancels a deployment that is still running, so two uploads never overlap on the same target. The workflow can also be started by hand with a dry run that only lists the changes.
+
+Required repository secrets:
+
+| Secret            | Content                                              |
+| ----------------- | ---------------------------------------------------- |
+| `SSH_PRIVATE_KEY` | Private key of a deploy key added to the all-inkl account |
+| `SSH_KNOWN_HOSTS` | Output of `ssh-keyscan <host>`, so the host key is pinned instead of trusted blindly |
+| `SSH_USER`        | SSH user of the all-inkl account                     |
+| `SSH_HOST`        | SSH host of the all-inkl account                     |
+| `SSH_TARGET`      | Target folder on the server, e.g. `/www/htdocs/<user>/pixelgeselle.de/` |
+
+`public/.htaccess` forces HTTPS and serves `index.html` for every path that is not a file, so `/impressum` and `/datenschutz` work on Apache.
+
 ### User Stories
 
 <ul>
