@@ -30,6 +30,10 @@ The palette separates two accents:
 
 Yellow is a surface colour only. Text on yellow is always `ink`; yellow text on `paper` is not readable and is never used.
 
+### Fonts
+
+Both typefaces are self-hosted through Fontsource and bundled by Vite. Nothing is loaded from Google Fonts: embedding Google Fonts sends the visitor's IP address to Google, which German courts have ruled a GDPR violation (LG München I, 3 O 17493/20). Only the Latin subset and the weights in use are imported in `src/main.tsx`.
+
 ### Tools used
 
 | Property          | Tool                           |
@@ -41,7 +45,7 @@ Yellow is a surface colour only. Text on yellow is always `ink`; yellow text on 
 | Styling           | Emotion, via the MUI `sx` prop |
 | Linting           | ESLint 9, typescript-eslint    |
 | Icons             | vite-plugin-svgr               |
-| Typefaces         | Bricolage Grotesque, Figtree   |
+| Typefaces         | Bricolage Grotesque, Figtree, self-hosted via Fontsource |
 | Package manager   | yarn                           |
 | Hosting           | all-inkl, static               |
 
@@ -50,6 +54,8 @@ Yellow is a surface colour only. Text on yellow is always `ink`; yellow text on 
 <ul>
 <li>@emotion/react</li>
 <li>@emotion/styled</li>
+<li>@fontsource/bricolage-grotesque</li>
+<li>@fontsource/figtree</li>
 <li>@mui/material</li>
 <li>react</li>
 <li>react-dom</li>
