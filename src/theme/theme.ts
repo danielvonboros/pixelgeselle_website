@@ -54,6 +54,7 @@ export const createAppTheme = (accent: Accent = accents.yellow) =>
       body1: { fontSize: "1rem", lineHeight: 1.625 },
       body2: { fontSize: "0.875rem", lineHeight: 1.5 },
       button: {
+        fontFamily: fonts.display,
         fontSize: "0.875rem",
         fontWeight: 500,
         lineHeight: 1.43,
