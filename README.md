@@ -17,7 +17,54 @@ All visible copy is German. Code, file names and identifiers are English.
 - Content is never hardcoded in components. Strings live in `src/content`.
 - Every visual value has exactly one source in the theme, mirroring the Pixelgeselle design system.
 - One folder per component under `src/components`, e.g. `components/card/Card.tsx`, with its data next to it.
-- SVG icons live in `src/assets/icons` and are imported as React components via `vite-plugin-svgr` (`icon.svg?react`).
+- SVG icons live in `src/assets/icons` and are imported as React components via `vite-plugin-svgr` (`icon.svg?react`). Use them through `components/icon/Icon.tsx`.
+
+### Structure
+
+```
+src/
+  assets/icons/   stroke icons as SVG, registered in index.ts
+  components/     reusable building blocks, one folder each
+  content/        all German copy, one file per section
+  pages/          Home and Legal, composed from sections
+  sections/       page sections, one folder each, composed from components
+  theme/          design tokens and the MUI theme
+```
+
+Sections in page order: Hero, Facts, Problems, Process, Packages, Examples, About, Faq, Booking. Header and Footer wrap every page.
+
+Reusable components:
+
+| Component     | Purpose                                                            |
+| ------------- | ------------------------------------------------------------------ |
+| `Logo`        | Wordmark with the yellow pixel as the dot on the i                 |
+| `Section`     | Section frame with optional eyebrow, title and lead; backgrounds `paper`, `card`, `ink`, `brand` |
+| `Icon`        | Renders an icon from `assets/icons` by name                        |
+| `PixelStairs` | Decorative pixel staircase, the brand motif                        |
+| `FactList`    | Row of short facts with icons                                      |
+| `CardGrid`    | Responsive grid for cards, 2 to 4 columns                          |
+| `InfoCard`    | Icon, title and text                                               |
+| `StepCard`    | Numbered process step with duration                                |
+| `PricingCard` | Package with price, features and call to action                    |
+| `ProjectCard` | Example or reference project with image or placeholder             |
+| `FaqList`     | Accordion of questions and answers                                 |
+| `Seo`         | Sets document title and robots meta per page                       |
+| `SkipLink`    | Keyboard link that jumps past the navigation                       |
+
+There is no router. `App.tsx` matches `window.location.pathname` against the legal pages in `src/content/legal.ts` and renders `Home` otherwise.
+
+### Before launch
+
+The first version contains placeholders that must be replaced before the site goes live:
+
+- Imprint: address, phone number and VAT ID in `src/content/legal.ts`.
+- Privacy policy: the full text in `src/content/legal.ts`, covering hosting, server logs, email contact and the booking tool.
+- Domain and email: `pixelgeselle.de` and `kontakt@pixelgeselle.de` are assumed in `src/content/site.ts`, `index.html`, `public/robots.txt` and `public/sitemap.xml`.
+- Booking: the cal.com link in `src/content/site.ts`. To embed the calendar instead of linking to it, uncomment the iframe in `src/sections/booking/Booking.tsx` and import `Box`.
+- Prices: the package prices in `src/content/packages.ts` and `index.html` are starting values to calibrate after the first project. The VAT note assumes regular VAT; change it if the small business rule applies.
+- Hosting in the care plan: reselling webspace requires an all-inkl reseller contract.
+- Photo: the about section shows a placeholder until a portrait is added.
+- Examples: the three demo sites are announced as "Demo folgt". A real reference is prepared as a commented entry in `src/content/examples.ts`; activate it once the client has agreed.
 
 ### Theme
 
