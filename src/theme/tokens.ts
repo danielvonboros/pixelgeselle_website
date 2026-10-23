@@ -2,6 +2,7 @@ export const colors = {
   paper: "#f1f0ec",
   card: "#ffffff",
   ink: "#282828",
+  inkRaised: "#3a3a3a",
   inkMuted: "#5c5b57",
   line: "#d9d7cf",
   border: "#8a8880",
