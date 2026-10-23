@@ -1,3 +1,4 @@
+import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import About from "./sections/about/About";
 import Booking from "./sections/booking/Booking";
@@ -24,6 +25,7 @@ function App() {
         <Faq />
         <Booking />
       </main>
+      <Footer />
     </>
   );
 }
