@@ -19,6 +19,17 @@ All visible copy is German. Code, file names and identifiers are English.
 - One folder per component under `src/components`, e.g. `components/card/Card.tsx`, with its data next to it.
 - SVG icons live in `src/assets/icons` and are imported as React components via `vite-plugin-svgr` (`icon.svg?react`).
 
+### Theme
+
+`src/theme/tokens.ts` holds the raw values of the design system: colours, fonts, radii and layout sizes. `src/theme/theme.ts` turns them into an MUI theme via `createAppTheme(accent)`.
+
+The palette separates two accents:
+
+- `palette.brand` is always Zollstock yellow. It marks the brand itself: the pixel in the logo, the favicon, small highlights.
+- `palette.primary` is the industry accent used by buttons and emphasis. It defaults to yellow. An industry page passes another accent from `accents` (`petrol`, `brick`) to `createAppTheme`, and nothing else changes.
+
+Yellow is a surface colour only. Text on yellow is always `ink`; yellow text on `paper` is not readable and is never used.
+
 ### Tools used
 
 | Property          | Tool                           |
