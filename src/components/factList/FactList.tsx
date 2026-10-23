@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import Icon from "../icon/Icon";
 import type { IconName } from "../../assets/icons";
+import { fonts } from "../../theme/tokens";
 
 interface FactListProps {
   items: { icon: IconName; label: string }[];
@@ -36,7 +37,7 @@ const FactList = ({ items }: FactListProps) => {
           >
             <Icon name={item.icon} size={20} />
           </Box>
-          <Typography variant="body2" sx={{ fontWeight: 500 }}>
+          <Typography variant="body2" sx={{ fontFamily: fonts.display, fontWeight: 500, fontSize: "0.9375rem" }}>
             {item.label}
           </Typography>
         </Box>
