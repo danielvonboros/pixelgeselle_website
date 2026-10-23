@@ -2,6 +2,7 @@ import Header from "./components/header/Header";
 import About from "./sections/about/About";
 import Examples from "./sections/examples/Examples";
 import Facts from "./sections/facts/Facts";
+import Faq from "./sections/faq/Faq";
 import Hero from "./sections/hero/Hero";
 import Packages from "./sections/packages/Packages";
 import Problems from "./sections/problems/Problems";
@@ -19,6 +20,7 @@ function App() {
         <Packages />
         <Examples />
         <About />
+        <Faq />
       </main>
     </>
   );
