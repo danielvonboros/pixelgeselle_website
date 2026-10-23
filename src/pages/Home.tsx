@@ -1,3 +1,4 @@
+import Seo from "../components/seo/Seo";
 import About from "../sections/about/About";
 import Booking from "../sections/booking/Booking";
 import Examples from "../sections/examples/Examples";
@@ -11,6 +12,7 @@ import Process from "../sections/process/Process";
 const Home = () => {
   return (
     <>
+      <Seo />
       <Hero />
       <Facts />
       <Problems />

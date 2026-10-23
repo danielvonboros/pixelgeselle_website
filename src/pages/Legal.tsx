@@ -1,5 +1,6 @@
 import { Link, Stack, Typography } from "@mui/material";
 import Section from "../components/section/Section";
+import Seo from "../components/seo/Seo";
 import type { LegalPage } from "../content/legal";
 
 interface LegalProps {
@@ -9,6 +10,7 @@ interface LegalProps {
 const Legal = ({ page }: LegalProps) => {
   return (
     <Section title={page.title}>
+      <Seo title={page.title} noIndex />
       <Stack spacing={4} sx={{ maxWidth: "44rem" }}>
         {page.sections.map((section) => (
           <Stack key={section.heading} spacing={1}>
