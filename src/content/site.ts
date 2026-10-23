@@ -12,7 +12,7 @@ export const site = {
   url: "https://pixelgeselle.de",
   email: "kontakt@pixelgeselle.de",
   bookingUrl: "https://cal.com/pixelgeselle/erstgespraech",
-  region: "Berlin und Brandenburg",
+  region: "ganz Deutschland",
 };
 
 export const navItems = [
