@@ -70,6 +70,19 @@ export const createAppTheme = (accent: Accent = accents.yellow) =>
             scrollBehavior: "smooth",
           },
           "::selection": { backgroundColor: colors.yellow, color: colors.ink },
+          "section[id]": { scrollMarginTop: 72 },
+          "main:focus": { outline: "none" },
+          "a:focus-visible, button:focus-visible, [role='button']:focus-visible": {
+            outline: `2px solid ${colors.ink}`,
+            outlineOffset: 3,
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            html: { scrollBehavior: "auto" },
+            "*, *::before, *::after": {
+              animationDuration: "0.01ms !important",
+              transitionDuration: "0.01ms !important",
+            },
+          },
         },
       },
       MuiButton: {
