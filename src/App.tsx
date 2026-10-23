@@ -1,4 +1,5 @@
 import Header from "./components/header/Header";
+import Facts from "./sections/facts/Facts";
 import Hero from "./sections/hero/Hero";
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
       <Header />
       <main id="top">
         <Hero />
+        <Facts />
       </main>
     </>
   );
