@@ -31,7 +31,14 @@ const ProjectCard = ({ title, category, text, tone, image, href, linkLabel, stat
           backgroundPosition: "top center",
         }}
       >
-        {!image && <PixelStairs steps={3} pixelsPerStep={2} size={14} gap={6} color={colors.paper} />}
+        {!image && <PixelStairs
+            steps={3}
+            pixelsPerStep={2}
+            size={14}
+            gap={6}
+            color={colors.paper}
+            accentColor={tone === colors.yellow ? colors.ink : "brand.main"}
+          />}
       </Box>
       <Stack spacing={1.5} sx={{ p: 3, flex: 1 }}>
         <Typography variant="caption" sx={{ color: "text.secondary", fontWeight: 500 }}>

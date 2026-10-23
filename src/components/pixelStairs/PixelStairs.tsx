@@ -6,6 +6,7 @@ interface PixelStairsProps {
   size?: number;
   gap?: number;
   color?: string;
+  accentColor?: string;
 }
 
 const PixelStairs = ({
@@ -14,6 +15,7 @@ const PixelStairs = ({
   size = 16,
   gap = 8,
   color = "text.primary",
+  accentColor = "brand.main",
 }: PixelStairsProps) => {
   const pitch = size + gap;
   const columns = steps * pixelsPerStep + 1;
@@ -45,7 +47,7 @@ const PixelStairs = ({
           top: 0,
           width: size,
           height: size,
-          bgcolor: "brand.main",
+          bgcolor: accentColor,
         }}
       />
     </Box>
