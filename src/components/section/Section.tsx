@@ -2,7 +2,7 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
 import { colors, layout } from "../../theme/tokens";
 
-type SectionBackground = "paper" | "card" | "ink";
+type SectionBackground = "paper" | "card" | "ink" | "brand";
 
 interface SectionProps {
   id?: string;
@@ -13,10 +13,11 @@ interface SectionProps {
   children?: ReactNode;
 }
 
-const backgrounds: Record<SectionBackground, { bg: string; ink: string; muted: string }> = {
-  paper: { bg: colors.paper, ink: colors.ink, muted: colors.inkMuted },
-  card: { bg: colors.card, ink: colors.ink, muted: colors.inkMuted },
-  ink: { bg: colors.ink, ink: colors.paper, muted: colors.line },
+const backgrounds: Record<SectionBackground, { bg: string; ink: string; muted: string; pixel: string }> = {
+  paper: { bg: colors.paper, ink: colors.ink, muted: colors.inkMuted, pixel: colors.yellow },
+  card: { bg: colors.card, ink: colors.ink, muted: colors.inkMuted, pixel: colors.yellow },
+  ink: { bg: colors.ink, ink: colors.paper, muted: colors.line, pixel: colors.yellow },
+  brand: { bg: colors.yellow, ink: colors.ink, muted: colors.ink, pixel: colors.ink },
 };
 
 const Section = ({
@@ -62,7 +63,7 @@ const Section = ({
                 <Box
                   component="span"
                   aria-hidden
-                  sx={{ width: 8, height: 8, bgcolor: "brand.main" }}
+                  sx={{ width: 8, height: 8, bgcolor: surface.pixel }}
                 />
                 {eyebrow}
               </Typography>

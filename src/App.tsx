@@ -1,5 +1,6 @@
 import Header from "./components/header/Header";
 import About from "./sections/about/About";
+import Booking from "./sections/booking/Booking";
 import Examples from "./sections/examples/Examples";
 import Facts from "./sections/facts/Facts";
 import Faq from "./sections/faq/Faq";
@@ -21,6 +22,7 @@ function App() {
         <Examples />
         <About />
         <Faq />
+        <Booking />
       </main>
     </>
   );
