@@ -50,7 +50,7 @@ export const packageOffers: PackageOffer[] = [
   {
     id: "s",
     name: "S",
-    price: 790,
+    price: 1090,
     carePerMonth: 29,
     pages: 3,
     scope: "Bis 3 Seiten",
@@ -63,7 +63,7 @@ export const packageOffers: PackageOffer[] = [
   {
     id: "m",
     name: "M",
-    price: 1490,
+    price: 1790,
     carePerMonth: 39,
     pages: 6,
     scope: "Bis 6 Seiten",
@@ -87,7 +87,7 @@ export const packageOffers: PackageOffer[] = [
   {
     id: "l",
     name: "L",
-    price: 2690,
+    price: 2990,
     carePerMonth: 59,
     pages: 12,
     scope: "Bis 12 Seiten",

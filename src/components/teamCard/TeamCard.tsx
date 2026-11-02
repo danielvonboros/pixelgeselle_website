@@ -3,7 +3,14 @@ import Icon from "../icon/Icon";
 import type { TeamMember } from "../../content/about";
 import { colors, motion, radius } from "../../theme/tokens";
 
-const TeamCard = ({ name, role, email, photo, paragraphs, highlights }: TeamMember) => {
+const TeamCard = ({
+  name,
+  role,
+  email,
+  photo,
+  paragraphs,
+  highlights,
+}: TeamMember) => {
   return (
     <Stack
       spacing={3}
@@ -30,7 +37,12 @@ const TeamCard = ({ name, role, email, photo, paragraphs, highlights }: TeamMemb
           }}
         >
           {photo ? (
-            <Box component="img" src={photo} alt={name} sx={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            <Box
+              component="img"
+              src={photo}
+              alt={name}
+              sx={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
           ) : (
             <Icon name="user" size={40} />
           )}
@@ -49,10 +61,29 @@ const TeamCard = ({ name, role, email, photo, paragraphs, highlights }: TeamMemb
           {paragraph}
         </Typography>
       ))}
-      <Stack component="ul" spacing={1.25} sx={{ m: 0, p: 0, listStyle: "none" }}>
+      <Stack
+        component="ul"
+        spacing={1.25}
+        sx={{ m: 0, p: 0, listStyle: "none" }}
+      >
         {highlights.map((highlight) => (
-          <Stack component="li" key={highlight} direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
-            <Box component="span" aria-hidden sx={{ width: 8, height: 8, bgcolor: colors.yellow, flexShrink: 0 }} />
+          <Stack
+            component="li"
+            key={highlight}
+            direction="row"
+            spacing={1.5}
+            sx={{ alignItems: "center" }}
+          >
+            <Box
+              component="span"
+              aria-hidden
+              sx={{
+                width: 8,
+                height: 8,
+                bgcolor: colors.yellow,
+                flexShrink: 0,
+              }}
+            />
             <Typography variant="body2" sx={{ color: colors.line }}>
               {highlight}
             </Typography>
@@ -72,16 +103,26 @@ const TeamCard = ({ name, role, email, photo, paragraphs, highlights }: TeamMemb
           fontWeight: 500,
           borderTop: `1px solid ${colors.inkMuted}`,
           width: "100%",
-          "& .team-mail": { transition: `transform ${motion.duration.fast}ms ${motion.ease.out}` },
+          "& .team-mail": {
+            transition: `transform ${motion.duration.fast}ms ${motion.ease.out}`,
+          },
           "&:hover .team-mail": { transform: "translateX(4px)" },
-          "&:hover .team-address": { textDecoration: "underline", textDecorationColor: colors.yellow, textUnderlineOffset: "4px" },
+          "&:hover .team-address": {
+            textDecoration: "underline",
+            textDecorationColor: colors.yellow,
+            textUnderlineOffset: "4px",
+          },
         }}
       >
         <Icon name="message" size={18} />
         <Box component="span" className="team-address">
           {email}
         </Box>
-        <Box component="span" className="team-mail" sx={{ display: "inline-flex", ml: "auto" }}>
+        <Box
+          component="span"
+          className="team-mail"
+          sx={{ display: "inline-flex", ml: "auto" }}
+        >
           <Icon name="arrowRight" size={18} />
         </Box>
       </Link>
