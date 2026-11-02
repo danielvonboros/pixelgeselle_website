@@ -46,7 +46,7 @@ export const team: TeamMember[] = [
 
 export const company = {
   name: site.name,
-  legalName: site.legalName,
+  owner: `Inhaber: ${site.owner}`,
   contactLabel: "Gemeinsamer Kontakt",
   email: site.email,
 };

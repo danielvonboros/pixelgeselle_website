@@ -44,7 +44,7 @@ const Footer = () => {
           </Stack>
         </Box>
         <Typography variant="caption" component="p" sx={{ mt: 6, color: colors.line }}>
-          © {year} {site.name} · {site.legalName}
+          © {year} {site.name} · {footer.owner}
         </Typography>
       </Container>
     </Box>

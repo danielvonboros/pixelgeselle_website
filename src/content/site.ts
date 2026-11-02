@@ -9,7 +9,7 @@ export const SECTION_IDS = {
 
 export const site = {
   name: "Pixelgesellen",
-  legalName: "Boros & Sanwald GbR",
+  owner: "Daniel von Boros",
   url: "https://pixelgesellen.de",
   email: "kontakt@pixelgesellen.de",
   bookingUrl: "https://cal.com/pixelgesellen/erstgespraech",

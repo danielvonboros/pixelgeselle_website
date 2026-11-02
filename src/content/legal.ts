@@ -7,7 +7,7 @@ export interface LegalPage {
 }
 
 const provider = {
-  owner: "Daniel von Boros",
+  owner: site.owner,
   street: "Kolonnenstraße 8",
   city: "10827 Berlin",
   vatId: "DE456695805",

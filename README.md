@@ -1,6 +1,6 @@
 # Pixelgesellen
 
-Landing page for Pixelgesellen (Boros & Sanwald GbR), fixed-price websites for trades and small service businesses.
+Landing page for Pixelgesellen (owner Daniel von Boros until Boros & Sanwald GbR is founded), fixed-price websites for trades and small service businesses.
 
 <p>Client side single page application, no backend except the PHP contact form</p>
 

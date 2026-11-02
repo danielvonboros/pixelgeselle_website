@@ -32,7 +32,7 @@ Visitors arrive from the homepage, Google, printed letters sent to businesses, a
 
 ## Brand Commitments
 
-- Name: Pixelgesellen, run by Boros & Sanwald GbR. The yellow pixel is the brand mark. Contact: kontakt@pixelgesellen.de, personal: daniel@ and alex@pixelgesellen.de.
+- Name: Pixelgesellen, run by Daniel von Boros as sole owner until Boros & Sanwald GbR is founded. The yellow pixel is the brand mark. Contact: kontakt@pixelgesellen.de, personal: daniel@ and alex@pixelgesellen.de.
 - Voice: German, informal "du", plain words from the trades, no marketing jargon (say "bei Google gefunden werden", not "SEO" in headlines). First person plural ("wir") for the business. The team section introduces Daniel von Boros (design and build) and Alexander Sanwald (product management and consulting background) in the third person.
 
 ## Evidence on Hand
