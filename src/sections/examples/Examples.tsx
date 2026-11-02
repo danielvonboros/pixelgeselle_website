@@ -6,7 +6,7 @@ import { examples, examplesIntro } from "../../content/examples";
 const Examples = () => {
   return (
     <Section {...examplesIntro} background="card">
-      <CardGrid columns={3}>
+      <CardGrid columns={2}>
         {examples.map((example) => (
           <ProjectCard key={example.title} {...example} />
         ))}

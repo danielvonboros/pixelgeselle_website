@@ -1,17 +1,22 @@
 import { Box } from "@mui/material";
-import { fonts } from "../../theme/tokens";
+import { site } from "../../content/site";
+import { drop } from "../../theme/keyframes";
+import { fonts, motion } from "../../theme/tokens";
 
 interface LogoProps {
   size?: number;
   color?: string;
+  animated?: boolean;
 }
 
-const Logo = ({ size = 24, color = "text.primary" }: LogoProps) => {
+const wordmark = site.name.toLowerCase();
+
+const Logo = ({ size = 24, color = "text.primary", animated = false }: LogoProps) => {
   return (
     <Box
       component="span"
       role="img"
-      aria-label="Pixelgeselle"
+      aria-label={site.name}
       sx={{
         display: "inline-flex",
         alignItems: "baseline",
@@ -25,7 +30,7 @@ const Logo = ({ size = 24, color = "text.primary" }: LogoProps) => {
       }}
     >
       <Box component="span" aria-hidden>
-        p
+        {wordmark.slice(0, 1)}
       </Box>
       <Box component="span" aria-hidden sx={{ position: "relative" }}>
         ı
@@ -37,13 +42,14 @@ const Logo = ({ size = 24, color = "text.primary" }: LogoProps) => {
             top: "-0.02em",
             width: "0.22em",
             height: "0.22em",
-            transform: "translateX(-50%)",
+            ml: "-0.11em",
             bgcolor: "brand.main",
+            animation: animated ? `${drop} ${motion.duration.slow}ms ${motion.ease.out} 250ms both` : "none",
           }}
         />
       </Box>
       <Box component="span" aria-hidden>
-        xelgeselle
+        {wordmark.slice(2)}
       </Box>
     </Box>
   );

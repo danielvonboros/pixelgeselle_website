@@ -35,6 +35,11 @@ jobs:
       - name: Build
         run: yarn build
 
+      - name: Check build
+        run: |
+          test -f dist/index.html
+          test -f dist/api/contact.php
+
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh

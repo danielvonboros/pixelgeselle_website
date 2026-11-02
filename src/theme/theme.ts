@@ -54,6 +54,7 @@ export const createAppTheme = (accent: Accent = accents.yellow) =>
       body1: { fontSize: "1rem", lineHeight: 1.625 },
       body2: { fontSize: "0.875rem", lineHeight: 1.5 },
       button: {
+        fontFamily: fonts.display,
         fontSize: "0.875rem",
         fontWeight: 500,
         lineHeight: 1.43,
@@ -73,17 +74,23 @@ export const createAppTheme = (accent: Accent = accents.yellow) =>
           "section[id]": { scrollMarginTop: 72 },
           "main:focus": { outline: "none" },
           "a:focus-visible, button:focus-visible, [role='button']:focus-visible": {
-            outline: `2px solid ${colors.ink}`,
+            outline: `2px solid var(--focus-ring, ${colors.ink})`,
             outlineOffset: 3,
           },
           "@media (prefers-reduced-motion: reduce)": {
             html: { scrollBehavior: "auto" },
             "*, *::before, *::after": {
               animationDuration: "0.01ms !important",
+              animationDelay: "0ms !important",
+              animationIterationCount: "1 !important",
               transitionDuration: "0.01ms !important",
+              transitionDelay: "0ms !important",
             },
           },
         },
+      },
+      MuiTypography: {
+        defaultProps: { variantMapping: { subtitle1: "p", subtitle2: "p" } },
       },
       MuiButton: {
         defaultProps: { disableElevation: true },

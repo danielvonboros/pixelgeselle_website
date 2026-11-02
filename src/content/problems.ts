@@ -1,9 +1,10 @@
 import type { IconName } from "../assets/icons";
+import { site } from "./site";
 
 export const problemsIntro = {
   eyebrow: "Kennst du das?",
   title: "Die Website ist das Letzte, wofür du Zeit hast.",
-  lead: "Du bist gut in deinem Handwerk. Eine Website zu planen, zu texten und zu bauen gehört nicht dazu. Genau dafür gibt es Pixelgeselle.",
+  lead: `Du bist gut in deinem Handwerk. Eine Website zu planen, zu texten und zu bauen gehört nicht dazu. Genau dafür gibt es die ${site.name}.`,
 };
 
 export const problems: { icon: IconName; title: string; text: string }[] = [

@@ -1,59 +1,62 @@
-import { Box, Stack, Typography } from "@mui/material";
-import Icon from "../../components/icon/Icon";
+import { Box, Link, Stack, Typography } from "@mui/material";
+import CardGrid from "../../components/cardGrid/CardGrid";
+import Logo from "../../components/logo/Logo";
+import Reveal from "../../components/reveal/Reveal";
 import Section from "../../components/section/Section";
-import { about, aboutIntro } from "../../content/about";
-import { colors } from "../../theme/tokens";
+import TeamCard from "../../components/teamCard/TeamCard";
+import { aboutIntro, company, team } from "../../content/about";
+import { colors, fonts } from "../../theme/tokens";
 
 const About = () => {
   return (
     <Section {...aboutIntro} background="ink">
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: { xs: "1fr", md: "minmax(0, 4fr) minmax(0, 7fr)" },
-          gap: { xs: 4, md: 8 },
-          alignItems: "start",
-        }}
-      >
-        <Stack spacing={2}>
-          <Box
-            sx={{
-              aspectRatio: "4 / 5",
-              maxWidth: 360,
-              borderRadius: 1.5,
-              bgcolor: colors.inkRaised,
-              display: "grid",
-              placeItems: "center",
-              color: colors.inkMuted,
-            }}
-          >
-            <Icon name="user" size={72} />
-          </Box>
-          <Box>
-            <Typography sx={{ fontWeight: 500 }}>{about.name}</Typography>
+      <CardGrid columns={2}>
+        {team.map((member) => (
+          <TeamCard key={member.name} {...member} />
+        ))}
+      </CardGrid>
+      <Reveal>
+        <Box
+          sx={{
+            mt: { xs: 5, md: 7 },
+            pt: 4,
+            borderTop: `1px solid ${colors.inkMuted}`,
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            justifyContent: "space-between",
+            alignItems: { xs: "flex-start", md: "flex-end" },
+            gap: 3,
+          }}
+        >
+          <Stack spacing={1.25}>
+            <Logo size={32} color={colors.paper} />
             <Typography variant="body2" sx={{ color: colors.line }}>
-              {about.role}
+              {company.legalName}
             </Typography>
-          </Box>
-        </Stack>
-        <Stack spacing={3}>
-          {about.paragraphs.map((paragraph) => (
-            <Typography key={paragraph} variant="subtitle1">
-              {paragraph}
-            </Typography>
-          ))}
-          <Stack component="ul" spacing={1.5} sx={{ m: 0, p: 0, pt: 1, listStyle: "none" }}>
-            {about.highlights.map((highlight) => (
-              <Stack component="li" key={highlight} direction="row" spacing={1.5} sx={{ alignItems: "center" }}>
-                <Box component="span" aria-hidden sx={{ width: 8, height: 8, bgcolor: "brand.main", flexShrink: 0 }} />
-                <Typography variant="body2" sx={{ color: colors.line }}>
-                  {highlight}
-                </Typography>
-              </Stack>
-            ))}
           </Stack>
-        </Stack>
-      </Box>
+          <Stack spacing={0.5} sx={{ alignItems: { md: "flex-end" } }}>
+            <Typography variant="caption" sx={{ color: colors.line, fontWeight: 500 }}>
+              {company.contactLabel}
+            </Typography>
+            <Link
+              href={`mailto:${company.email}`}
+              underline="hover"
+              color="inherit"
+              sx={{
+                fontFamily: fonts.display,
+                fontWeight: 500,
+                fontSize: { xs: "1.375rem", md: "1.75rem" },
+                lineHeight: 1.2,
+                textDecorationColor: colors.yellow,
+                textUnderlineOffset: "6px",
+                overflowWrap: "anywhere",
+              }}
+            >
+              {company.email}
+            </Link>
+          </Stack>
+        </Box>
+      </Reveal>
     </Section>
   );
 };

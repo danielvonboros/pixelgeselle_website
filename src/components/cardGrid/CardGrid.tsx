@@ -1,5 +1,7 @@
 import { Box } from "@mui/material";
-import type { ReactNode } from "react";
+import { Children, isValidElement, type ReactNode } from "react";
+import Reveal from "../reveal/Reveal";
+import { motion } from "../../theme/tokens";
 
 interface CardGridProps {
   columns?: 2 | 3 | 4;
@@ -19,7 +21,11 @@ const CardGrid = ({ columns = 3, children }: CardGridProps) => {
         gap: 3,
       }}
     >
-      {children}
+      {Children.toArray(children).map((child, index) => (
+        <Reveal key={isValidElement(child) ? child.key : index} delay={index * motion.stagger} sx={{ height: "100%" }}>
+          {child}
+        </Reveal>
+      ))}
     </Box>
   );
 };
