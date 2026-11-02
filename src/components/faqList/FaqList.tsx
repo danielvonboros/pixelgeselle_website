@@ -30,7 +30,7 @@ const FaqList = ({ items }: FaqListProps) => {
               "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": { transform: "rotate(45deg)" },
             }}
           >
-            <Typography variant="h3" component="h3" sx={{ fontSize: "1.125rem", pr: 2 }}>
+            <Typography variant="h3" component="span" sx={{ fontSize: "1.125rem", pr: 2 }}>
               {item.question}
             </Typography>
           </AccordionSummary>

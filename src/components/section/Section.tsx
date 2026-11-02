@@ -1,6 +1,7 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
-import { colors, layout } from "../../theme/tokens";
+import Reveal from "../reveal/Reveal";
+import { colors, layout, motion } from "../../theme/tokens";
 
 type SectionBackground = "paper" | "card" | "ink" | "brand";
 
@@ -35,7 +36,7 @@ const Section = ({
     <Box
       component="section"
       id={id}
-      sx={{ bgcolor: surface.bg, color: surface.ink }}
+      sx={{ bgcolor: surface.bg, color: surface.ink, "--focus-ring": surface.ink }}
     >
       <Container
         maxWidth={false}
@@ -50,29 +51,37 @@ const Section = ({
         {hasHeader && (
           <Stack spacing={2} sx={{ maxWidth: "48rem", mb: children ? 6 : 0 }}>
             {eyebrow && (
-              <Typography
-                variant="caption"
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 1,
-                  fontWeight: 500,
-                  color: surface.muted,
-                }}
-              >
-                <Box
-                  component="span"
-                  aria-hidden
-                  sx={{ width: 8, height: 8, bgcolor: surface.pixel }}
-                />
-                {eyebrow}
-              </Typography>
+              <Reveal distance={12}>
+                <Typography
+                  variant="caption"
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1,
+                    fontWeight: 500,
+                    color: surface.muted,
+                  }}
+                >
+                  <Box
+                    component="span"
+                    aria-hidden
+                    sx={{ width: 8, height: 8, bgcolor: surface.pixel }}
+                  />
+                  {eyebrow}
+                </Typography>
+              </Reveal>
             )}
-            {title && <Typography variant="h2">{title}</Typography>}
+            {title && (
+              <Reveal delay={motion.stagger}>
+                <Typography variant="h2">{title}</Typography>
+              </Reveal>
+            )}
             {lead && (
-              <Typography variant="subtitle1" sx={{ color: surface.muted }}>
-                {lead}
-              </Typography>
+              <Reveal delay={motion.stagger * 2}>
+                <Typography variant="subtitle1" sx={{ color: surface.muted }}>
+                  {lead}
+                </Typography>
+              </Reveal>
             )}
           </Stack>
         )}

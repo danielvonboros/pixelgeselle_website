@@ -11,6 +11,16 @@ export const colors = {
   brick: "#b04522",
 };
 
+export const effects = {
+  glow: "rgba(242, 183, 5, 0.18)",
+  pulse: "rgba(242, 183, 5, 0.55)",
+  pulseFade: "rgba(242, 183, 5, 0)",
+  glare: "rgba(255, 255, 255, 0.22)",
+  shadow: "0 32px 64px -32px rgba(40, 40, 40, 0.28)",
+  shadowRaised: "0 24px 48px -28px rgba(40, 40, 40, 0.35)",
+  headerTint: "rgba(241, 240, 236, 0.82)",
+};
+
 export interface Accent {
   main: string;
   contrastText: string;
@@ -36,4 +46,19 @@ export const radius = {
 export const layout = {
   maxWidth: 1200,
   sectionY: { xs: 64, md: 96 },
+  headerHeight: { xs: 64, md: 72 },
+};
+
+export const motion = {
+  ease: {
+    out: "cubic-bezier(0.22, 1, 0.36, 1)",
+    inOut: "cubic-bezier(0.65, 0, 0.35, 1)",
+    spring: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+  },
+  duration: {
+    fast: 200,
+    base: 700,
+    slow: 1100,
+  },
+  stagger: 90,
 };

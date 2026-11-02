@@ -8,7 +8,7 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <Box component="footer" sx={{ bgcolor: colors.ink, color: colors.paper }}>
+    <Box component="footer" sx={{ bgcolor: colors.ink, color: colors.paper, "--focus-ring": colors.paper }}>
       <Container maxWidth={false} sx={{ maxWidth: layout.maxWidth, py: { xs: 6, md: 8 } }}>
         <Box
           sx={{
@@ -18,7 +18,7 @@ const Footer = () => {
           }}
         >
           <Stack spacing={2}>
-            <Link href="/" underline="none" aria-label="Pixelgeselle, zur Startseite">
+            <Link href="/" underline="none" aria-label={`${site.name}, zur Startseite`}>
               <Logo size={28} color={colors.paper} />
             </Link>
             <Typography variant="body2" sx={{ color: colors.line, maxWidth: "24rem" }}>
@@ -27,7 +27,7 @@ const Footer = () => {
           </Stack>
           <Stack component="nav" aria-label="Footer-Navigation" spacing={1}>
             {navItems.map((item) => (
-              <Link key={item.id} href={`/#${item.id}`} underline="hover" color="inherit" variant="body2">
+              <Link key={item.href} href={item.href} underline="hover" color="inherit" variant="body2">
                 {item.label}
               </Link>
             ))}
@@ -44,7 +44,7 @@ const Footer = () => {
           </Stack>
         </Box>
         <Typography variant="caption" component="p" sx={{ mt: 6, color: colors.line }}>
-          © {year} {site.name}
+          © {year} {site.name} · {site.legalName}
         </Typography>
       </Container>
     </Box>

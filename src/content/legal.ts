@@ -1,3 +1,5 @@
+import { site } from "./site";
+
 export interface LegalPage {
   path: string;
   title: string;
@@ -10,11 +12,15 @@ export const imprint: LegalPage = {
   sections: [
     {
       heading: "Angaben gemäß § 5 DDG",
-      paragraphs: ["Daniel von Boros", "Pixelgeselle", "[Straße und Hausnummer]", "[PLZ] Berlin"],
+      paragraphs: [site.name, site.legalName, "[Straße und Hausnummer]", "[PLZ] Berlin"],
+    },
+    {
+      heading: "Vertreten durch die Gesellschafter",
+      paragraphs: ["Daniel von Boros", "Alexander Sanwald"],
     },
     {
       heading: "Kontakt",
-      paragraphs: ["E-Mail: kontakt@pixelgeselle.de", "Telefon: [Telefonnummer]"],
+      paragraphs: [`E-Mail: ${site.email}`, "Telefon: [Telefonnummer]"],
     },
     {
       heading: "Umsatzsteuer",
@@ -22,7 +28,7 @@ export const imprint: LegalPage = {
     },
     {
       heading: "Verantwortlich für den Inhalt",
-      paragraphs: ["Daniel von Boros, Anschrift wie oben"],
+      paragraphs: ["Daniel von Boros und Alexander Sanwald, Anschrift wie oben"],
     },
   ],
 };
@@ -34,7 +40,7 @@ export const privacy: LegalPage = {
     {
       heading: "Hinweis",
       paragraphs: [
-        "[Hier den vollständigen Text der Datenschutzerklärung einfügen, zum Beispiel aus einem Datenschutz-Generator. Er muss Hosting, Server-Logfiles, Kontakt per E-Mail, die Terminbuchung und das Laden der Schriften abdecken.]",
+        "[Hier den vollständigen Text der Datenschutzerklärung einfügen, zum Beispiel aus einem Datenschutz-Generator. Er muss Hosting, Server-Logfiles, Kontakt per E-Mail, das Kontaktformular, die Terminbuchung und das Laden der Schriften abdecken.]",
       ],
     },
   ],

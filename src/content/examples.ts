@@ -1,35 +1,48 @@
 import type { ProjectCardProps } from "../components/projectCard/ProjectCard";
 import { colors } from "../theme/tokens";
-import { SECTION_IDS } from "./site";
+import { SECTION_IDS, site } from "./site";
 
 export const examplesIntro = {
   id: SECTION_IDS.examples,
   eyebrow: "Beispiele",
   title: "So könnte deine Website aussehen.",
-  lead: "Drei Beispielseiten für erfundene Betriebe zeigen, was in den Paketen steckt. Jede Seite bekommt eine eigene Gestaltung, abgestimmt auf Gewerk und Kundschaft.",
+  lead: "Vier Beispielseiten für erfundene Betriebe, gebaut wie echte Kundenprojekte. Jede hat eine eigene Gestaltung, abgestimmt auf Gewerk und Kundschaft.",
 };
+
+const demo = (slug: string) => ({
+  href: `${site.demosUrl}/${slug}/`,
+  image: `${site.demosUrl}/catalog/${slug}.jpg`,
+  linkLabel: "Beispiel ansehen",
+});
 
 export const examples: ProjectCardProps[] = [
   {
-    title: "Elektrotechnik",
-    category: "Beispielseite, Paket Standard",
-    text: "Leistungsseiten für Installation, E-Mobilität und Smart Home, dazu ein Notdienst-Hinweis gut sichtbar auf jeder Seite.",
-    tone: colors.yellow,
-    status: "Demo folgt",
-  },
-  {
-    title: "Tischlerei",
-    category: "Beispielseite, Paket Standard",
-    text: "Große Bilder, eine Galerie mit Referenzen und eine Anfrage, bei der Kundinnen gleich Maße und Fotos mitschicken.",
-    tone: colors.brick,
-    status: "Demo folgt",
-  },
-  {
-    title: "Malerbetrieb",
-    category: "Beispielseite, Paket Start",
-    text: "Ein klarer Onepager: Leistungen, Einsatzgebiet, Ablauf und ein Kontaktformular, das auf dem Handy in einer Minute ausgefüllt ist.",
+    title: "Raumton Malerwerkstatt",
+    category: "Maler aus Berlin · Größe S",
+    text: "Ein ruhiger Onepager: Farbtöne zum Durchklicken, Leistungen, Festpreise pro Raum und ein kurzes Kontaktformular.",
     tone: colors.petrol,
-    status: "Demo folgt",
+    ...demo("raumton"),
+  },
+  {
+    title: "Phase Elektrotechnik",
+    category: "Elektriker aus Köln · Größe M",
+    text: "Ein Lichtregler zum Ausprobieren, Leistungen, Projekte und eine Anfrage mit Foto-Upload. Der Notdienst ist immer zu sehen.",
+    tone: colors.yellow,
+    ...demo("phase"),
+  },
+  {
+    title: "Firstlinie Dach und Fassade",
+    category: "Dachdecker aus Hamburg · Größe M",
+    text: "Technische Zeichnungen statt Stockfotos, ein klickbarer Dachaufbau und Referenzen mit Ort und Jahr.",
+    tone: colors.brick,
+    ...demo("firstlinie"),
+  },
+  {
+    title: "Werkstatt Ahrens",
+    category: "Schreiner aus München · Größe L",
+    text: "Ein Monogramm in der gewählten Holzart, Projekte zum Filtern, der Ablauf vom Aufmaß bis zur Montage und eine Karriereseite.",
+    tone: colors.ink,
+    ...demo("ahrens"),
   },
   // {
   //   title: "CaNa Hallenbau",

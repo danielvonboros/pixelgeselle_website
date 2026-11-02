@@ -1,22 +1,47 @@
-import { SECTION_IDS } from "./site";
+import { SECTION_IDS, site } from "./site";
 
 export const aboutIntro = {
   id: SECTION_IDS.about,
   eyebrow: "Wer dahintersteckt",
-  title: "Ein Geselle, kein Callcenter.",
+  title: "Zwei Gesellen, kein Callcenter.",
+  lead: `Hinter den ${site.name} stehen Daniel von Boros und Alexander Sanwald. Einer kennt die Baustelle und baut deine Website, der andere bringt Struktur in jedes Projekt. Vom Erstgespräch bis zum Start hast du zwei feste Ansprechpartner.`,
 };
 
-export const about = {
-  name: "Daniel von Boros",
-  role: "Architekt M.Sc. und Frontend-Entwickler",
-  paragraphs: [
-    "Ich habe Jahre lang Gebäude geplant und Baustellen in Berlin und Brandenburg betreut. Ich weiß, wie dein Alltag aussieht: früh raus, viel unterwegs, Angebote am Abend.",
-    "Seit 2021 entwickle ich Websites und Weboberflächen, zuletzt mehrere Jahre in einem Softwareunternehmen. Pixelgeselle verbindet beides: Ich verstehe dein Handwerk und baue dir eine Seite, die technisch sauber ist.",
-    "Du hast von der ersten Nachricht bis zum Start einen Ansprechpartner. Mich.",
-  ],
-  highlights: [
-    "Architekt M.Sc. mit Erfahrung in Planung und Bauleitung",
-    "Frontend-Entwickler seit 2021",
-    "Ein Ansprechpartner vom Erstgespräch bis zum Start",
-  ],
+export interface TeamMember {
+  name: string;
+  role: string;
+  email: string;
+  photo?: string;
+  paragraphs: string[];
+  highlights: string[];
+}
+
+export const team: TeamMember[] = [
+  {
+    name: "Daniel von Boros",
+    role: "Architekt M.Sc. und Frontend-Entwickler",
+    email: "daniel@pixelgesellen.de",
+    paragraphs: [
+      "Daniel hat jahrelang Gebäude geplant und Baustellen in Berlin und Brandenburg betreut. Er weiß, wie dein Alltag aussieht: früh raus, viel unterwegs, Angebote am Abend.",
+      "Seit 2021 entwickelt er Websites und Weboberflächen, zuletzt mehrere Jahre in einem Softwareunternehmen. Bei den Pixelgesellen gestaltet und baut er deine Seite.",
+    ],
+    highlights: ["Architekt M.Sc. mit Erfahrung in Planung und Bauleitung", "Frontend-Entwickler seit 2021"],
+  },
+  {
+    name: "Alexander Sanwald",
+    role: "Produktmanager und Berater",
+    email: "alex@pixelgesellen.de",
+    paragraphs: [
+      "Alexander arbeitet seit 14 Jahren im Produktmanagement. Als Berater begleitet er Startups und wachsende Firmen, unter anderem aus der Autobranche, vom Plan bis zum fertigen Produkt.",
+      "Er hat mehrere Produkte in kleinen Firmen und Startups auf den Markt gebracht und weiß, wie man aus vielen Wünschen einen klaren Plan macht. Diese Erfahrung bringt er in den Ablauf deines Projekts ein.",
+    ],
+    highlights: ["14 Jahre Produktmanagement", "Mehrere Produktstarts in kleinen Firmen und Startups"],
+  },
+];
+
+export const company = {
+  name: site.name,
+  legalName: site.legalName,
+  contactLabel: "Gemeinsamer Kontakt",
+  email: site.email,
 };

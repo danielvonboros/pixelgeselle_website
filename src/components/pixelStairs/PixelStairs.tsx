@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import type { CSSProperties } from "react";
 
 interface PixelStairsProps {
   steps?: number;
@@ -29,6 +30,8 @@ const PixelStairs = ({
         return (
           <Box
             key={index}
+            data-pixel
+            style={{ "--i": `${index * 45}ms` } as CSSProperties}
             sx={{
               position: "absolute",
               left: index * pitch,
@@ -41,6 +44,8 @@ const PixelStairs = ({
         );
       })}
       <Box
+        data-pixel
+        style={{ "--i": `${(columns - 1) * 45}ms` } as CSSProperties}
         sx={{
           position: "absolute",
           left: (columns - 1) * pitch,
