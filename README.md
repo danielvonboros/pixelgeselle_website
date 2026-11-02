@@ -75,8 +75,7 @@ There is no router. `App.tsx` matches `window.location.pathname` against the leg
 
 The first version contains placeholders that must be replaced before the site goes live:
 
-- Imprint: address, phone number and VAT ID in `src/content/legal.ts`.
-- Privacy policy: the full text in `src/content/legal.ts`, covering hosting, server logs, email contact and the booking tool.
+- Imprint and privacy policy in `src/content/legal.ts`: written for Daniel von Boros as sole owner until the GbR is founded, then switch the provider to the GbR. The privacy policy covers all-inkl hosting and mail, server logs, email, the contact form, the cal.com link and the self-hosted fonts. Extend it before adding any other service. There is no phone number, the contact form is the second quick contact route next to email.
 - Domain and email: `pixelgesellen.de` and `kontakt@pixelgesellen.de` are assumed in `src/content/site.ts`, `index.html`, `public/robots.txt` and `public/sitemap.xml`. The personal addresses `daniel@` and `alex@pixelgesellen.de` are in `src/content/about.ts`.
 - Booking: the cal.com link in `src/content/site.ts`. To embed the calendar instead of linking to it, uncomment the iframe in `src/sections/booking/Booking.tsx`.
 - Contact form: create the mailbox `noreply@pixelgesellen.de` in KAS and put `contact-config.php` on the server, see Contact form below. Then send one test message from the live site.
@@ -92,7 +91,7 @@ The form sits in the booking section next to the calendar link. `ContactForm` lo
 
 - From `Pixelgesellen <noreply@pixelgesellen.de>`, to `kontakt@pixelgesellen.de`. Reply-To is the visitor, so answering the mail answers them.
 - Subject `Kontaktformular: <Betrieb or Name>`, plain text with name, business, email, phone and message.
-- Spam protection without third parties: a math task signed with a secret, a minimum of 3 seconds between loading the task and sending, a hidden honeypot field, a check of the Origin header and at most 5 messages per hour and connection. Nothing is stored except the hashed connection for the rate limit.
+- Spam protection without third parties: a math task signed with a secret, a minimum of 3 seconds between loading the task and sending, a hidden honeypot field, a check of the Origin header and at most 5 messages per hour and connection. Nothing is stored except the hashed connection for the rate limit, and entries older than an hour are deleted on the next submission, as the privacy policy states.
 
 The script is the same as on raumideenwerk. It reads recipient, sender and secret from `contact-config.php` one level above the web root, so the secret is never part of the repository and several domains of the account can share the file. `server/contact-config.example.php` shows the entry for this site:
 
