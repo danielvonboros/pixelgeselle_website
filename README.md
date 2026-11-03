@@ -83,7 +83,7 @@ The first version contains placeholders that must be replaced before the site go
 - Launch offer: `referenceSlotsLeft` in `src/content/packages.ts` counts the free places of the launch discount. Lower it with every new client and remove the strip when it reaches zero.
 - Hosting in the care plan: reselling webspace requires an all-inkl reseller contract.
 - Photos: the team cards show a placeholder until `photo` is set for each member in `src/content/about.ts`.
-- Examples: the four demo sites live in the `pixelgeselle-demos` repository and are linked at `https://demos.pixelgesellen.de/<site>/`. Deploy them before this site, otherwise the example links lead nowhere. The card images load from `/catalog/<site>.jpg` on the demo subdomain; until they exist, the cards show their colour and the pixel staircase. A real reference is prepared as a commented entry in `src/content/examples.ts`; activate it once the client has agreed.
+- Examples: the four demo sites live in the `pixelgeselle-demos` repository and are linked at `https://demos.pixelgesellen.de/<site>/`. Deploy them before this site, otherwise the example links lead nowhere. The card images are screenshots of the demo home pages and load from `/catalog/<site>.jpg` on the demo subdomain; until they exist, the cards show their colour and the pixel staircase. A real reference is prepared as a commented entry in `src/content/examples.ts`; activate it once the client has agreed.
 
 ### Contact form
 
