@@ -1,19 +1,16 @@
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
 import "@fontsource/bricolage-grotesque/latin-500.css";
 import "@fontsource/figtree/latin-400.css";
 import "@fontsource/figtree/latin-500.css";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { createAppTheme } from "./theme/theme.ts";
-import App from "./App.tsx";
+import Root from "./Root.tsx";
+import { createEmotionCache } from "./theme/emotionCache.ts";
 
-const theme = createAppTheme();
+const container = document.getElementById("root")!;
+const root = <Root cache={createEmotionCache()} path={window.location.pathname} />;
 
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <App />
-    </ThemeProvider>
-  </StrictMode>,
-);
+// The production build ships prerendered markup (scripts/prerender.js), the dev server an empty root.
+if (container.hasChildNodes()) {
+  hydrateRoot(container, root);
+} else {
+  createRoot(container).render(root);
+}

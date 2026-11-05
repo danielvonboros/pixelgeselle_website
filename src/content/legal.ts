@@ -127,3 +127,5 @@ export const privacy: LegalPage = {
 };
 
 export const legalPages = [imprint, privacy];
+
+export const findLegalPage = (path: string) => legalPages.find((page) => page.path === path.replace(/\/$/, ""));
