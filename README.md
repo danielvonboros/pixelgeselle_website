@@ -79,7 +79,7 @@ There is no router. `App.tsx` receives the path as a prop, matches it against th
 2. `vite build --ssr src/entry-server.tsx` builds a Node version of the app to `dist-ssr/`.
 3. `scripts/prerender.js` renders `/`, `/impressum` and `/datenschutz` with `renderToString`, extracts the Emotion styles with `@emotion/server` and writes `dist/index.html`, `dist/impressum.html` and `dist/datenschutz.html`. Then it deletes `dist-ssr/`.
 
-`src/main.tsx` hydrates the prerendered markup and falls back to a normal render in `yarn dev`, where the root is empty. Code that reads `window` or `document` must therefore run in an effect, not during render, and the first render must not depend on the time or on random values.
+`src/main.tsx` hydrates the prerendered markup and falls back to a normal render in `yarn dev`, where the root is empty. Code that reads `window` or `document` must therefore run in an effect, not during render, and the first render must not depend on the time, on random values or on media queries. `useMediaQuery` therefore runs without `noSsr`, so it returns the server value first and the real one right after hydration.
 
 The head (`<!--app-head-->` in `index.html`) is generated from content: title, description, canonical, robots, Open Graph and the JSON-LD in `src/content/seo.ts` read the prices from `src/content/packages.ts`, so the meta tags cannot drift from the price table.
 
