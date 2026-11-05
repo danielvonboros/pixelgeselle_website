@@ -1,14 +1,14 @@
 import { team } from "./about";
-import { formatEuro, packageOffers, pricing } from "./packages";
+import { formatEuro, packageOffers, pricing, startingPrice } from "./packages";
 import { site } from "./site";
 
 const prices = packageOffers.map((offer) => offer.price);
-const startingPrice = formatEuro(Math.min(...prices));
+const startingFrom = formatEuro(startingPrice);
 
 export const seo = {
   title: `Website für Handwerker zum Festpreis | ${site.name}`,
-  description: `Deine neue Website zum Festpreis ab ${startingPrice} netto, in ${pricing.deliveryDays} Tagen online: Interview, Texte, Gestaltung und Umsetzung aus einer Hand. Für Handwerks- und Dienstleistungsbetriebe in ${site.region}.`,
-  shareDescription: `Ein Interview von 30 Minuten, den Rest übernehmen wir: Texte, Gestaltung und Umsetzung. Festpreis ab ${startingPrice} netto.`,
+  description: `Deine neue Website zum Festpreis ab ${startingFrom} netto, in ${pricing.deliveryDays} Tagen online: Interview, Texte, Gestaltung und Umsetzung aus einer Hand. Für Handwerks- und Dienstleistungsbetriebe in ${site.region}.`,
+  shareDescription: `Ein Interview von 30 Minuten, den Rest übernehmen wir: Texte, Gestaltung und Umsetzung. Festpreis ab ${startingFrom} netto.`,
   image: { url: `${site.url}/og.png`, width: 1200, height: 630 },
 };
 
@@ -27,7 +27,7 @@ export const structuredData = {
   image: seo.image.url,
   founder: team.map((member) => ({ "@type": "Person", name: member.name })),
   areaServed: { "@type": "Country", name: "Deutschland" },
-  priceRange: `${startingPrice} – ${formatEuro(Math.max(...prices))}`,
+  priceRange: `${startingFrom} – ${formatEuro(Math.max(...prices))}`,
   makesOffer: packageOffers.map((offer) => ({
     "@type": "Offer",
     name: `Website Größe ${offer.name}`,
