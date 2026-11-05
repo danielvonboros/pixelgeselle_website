@@ -50,7 +50,7 @@ export const packageOffers: PackageOffer[] = [
   {
     id: "s",
     name: "S",
-    price: 1090,
+    price: 990,
     carePerMonth: 29,
     pages: 3,
     scope: "Bis 3 Seiten",
@@ -63,7 +63,7 @@ export const packageOffers: PackageOffer[] = [
   {
     id: "m",
     name: "M",
-    price: 1790,
+    price: 1490,
     carePerMonth: 39,
     pages: 6,
     scope: "Bis 6 Seiten",
@@ -87,7 +87,7 @@ export const packageOffers: PackageOffer[] = [
   {
     id: "l",
     name: "L",
-    price: 2990,
+    price: 2490,
     carePerMonth: 59,
     pages: 12,
     scope: "Bis 12 Seiten",
@@ -128,6 +128,8 @@ export const featureOffers: FeatureOffer[] = [
 
 export const formatEuro = (amount: number) =>
   `${new Intl.NumberFormat("de-DE", { maximumFractionDigits: 0 }).format(amount)} €`;
+
+export const startingPrice = Math.min(...packageOffers.map((offer) => offer.price));
 
 const [smallest] = packageOffers;
 const recommended = packageOffers.find((offer) => offer.highlighted) ?? smallest;

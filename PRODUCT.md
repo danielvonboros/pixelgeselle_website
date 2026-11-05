@@ -24,7 +24,7 @@ Visitors arrive from the homepage, Google, printed letters sent to businesses, a
 
 ## Capabilities and Constraints
 
-- Packages, confirmed 2026-11-02: sizes S 990 €, M 1,690 €, L 2,990 €, net, plus statutory VAT. Care plan per size 29 / 39 / 59 € per month, cancellable monthly. No rental for now (decided 2026-11-02). Two correction rounds in every package. L includes one time-saving feature; further features and extra pages are priced individually as add-ons. The first five clients get 30 % off the one-off price in return for a review and permission to show the site as a reference.
+- Packages, set 2026-11-05: sizes S 990 €, M 1,490 €, L 2,490 €, net, plus statutory VAT. Whether these prices are competitive and pay for the effort is still open; review them after the first projects. Care plan per size 29 / 39 / 59 € per month, cancellable monthly. No rental for now (decided 2026-11-02). Two correction rounds in every package. L includes one time-saving feature; further features and extra pages are priced individually as add-ons. The first five clients get 30 % off the one-off price in return for a review and permission to show the site as a reference.
 - Delivery: online in 14 days from the interview.
 - Photos are not included; Pixelgesellen recommends a local photographer.
 - Legal texts come from a generator or the client's lawyer; Pixelgesellen does not give legal advice.
