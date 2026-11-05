@@ -10,6 +10,8 @@ interface SectionProps {
   id?: string;
   eyebrow?: string;
   title?: string;
+  // h1 when the section is the whole page, as on the legal pages
+  titleAs?: "h1" | "h2";
   lead?: string;
   background?: SectionBackground;
   children?: ReactNode;
@@ -26,6 +28,7 @@ const Section = ({
   id,
   eyebrow,
   title,
+  titleAs = "h2",
   lead,
   background = "paper",
   children,
@@ -60,7 +63,9 @@ const Section = ({
             )}
             {title && (
               <Reveal delay={motion.stagger}>
-                <Typography variant="h2">{title}</Typography>
+                <Typography variant="h2" component={titleAs}>
+                  {title}
+                </Typography>
               </Reveal>
             )}
             {lead && (
