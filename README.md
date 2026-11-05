@@ -124,6 +124,10 @@ The palette separates two accents:
 
 Yellow is a surface colour only. Text on yellow is always `ink`; yellow text on `paper` is not readable and is never used.
 
+Components may use the neutral tokens (`ink`, `paper`, `line`, …) and the brand yellow from `tokens.ts` directly, because they never change with the accent. Anything that should follow the industry accent, such as buttons and the focus glow of form fields, reads `palette.primary` from the theme instead.
+
+Headings use `text-wrap: balance` and body text `text-wrap: pretty` from the theme, so lines break evenly without manual line breaks.
+
 ### Motion
 
 Every animation has a job: it shows how a website is built from pixels in 14 days, or it confirms an action. Durations, easings and the stagger live in `motion` in `src/theme/tokens.ts`, the keyframes in `src/theme/keyframes.ts`.

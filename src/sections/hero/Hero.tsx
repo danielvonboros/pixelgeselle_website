@@ -1,5 +1,6 @@
 import { Box, Button, Container, Link, Stack, Typography } from "@mui/material";
 import AnimatedHeadline from "../../components/animatedHeadline/AnimatedHeadline";
+import Eyebrow from "../../components/eyebrow/Eyebrow";
 import Icon from "../../components/icon/Icon";
 import Magnetic from "../../components/magnetic/Magnetic";
 import PixelSite from "../../components/pixelSite/PixelSite";
@@ -47,13 +48,7 @@ const Hero = () => {
         }}
       >
         <Stack spacing={3}>
-          <Typography
-            variant="caption"
-            sx={{ display: "flex", alignItems: "center", gap: 1, fontWeight: 500, color: "text.secondary", ...enter(0) }}
-          >
-            <Box component="span" aria-hidden sx={{ width: 8, height: 8, bgcolor: "brand.main", flexShrink: 0 }} />
-            {hero.eyebrow}
-          </Typography>
+          <Eyebrow sx={enter(0)}>{hero.eyebrow}</Eyebrow>
           <AnimatedHeadline lines={hero.headline} />
           <Typography variant="subtitle1" sx={{ color: "text.secondary", maxWidth: "36rem", ...enter(520) }}>
             {hero.lead}

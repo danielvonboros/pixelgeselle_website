@@ -1,5 +1,6 @@
 import { Box, Container, Stack, Typography } from "@mui/material";
 import type { ReactNode } from "react";
+import Eyebrow from "../eyebrow/Eyebrow";
 import Reveal from "../reveal/Reveal";
 import { colors, layout, motion } from "../../theme/tokens";
 
@@ -52,23 +53,9 @@ const Section = ({
           <Stack spacing={2} sx={{ maxWidth: "48rem", mb: children ? 6 : 0 }}>
             {eyebrow && (
               <Reveal distance={12}>
-                <Typography
-                  variant="caption"
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1,
-                    fontWeight: 500,
-                    color: surface.muted,
-                  }}
-                >
-                  <Box
-                    component="span"
-                    aria-hidden
-                    sx={{ width: 8, height: 8, bgcolor: surface.pixel }}
-                  />
+                <Eyebrow color={surface.muted} pixel={surface.pixel}>
                   {eyebrow}
-                </Typography>
+                </Eyebrow>
               </Reveal>
             )}
             {title && (
