@@ -1,13 +1,16 @@
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import SkipLink from "./components/skipLink/SkipLink";
-import { legalPages } from "./content/legal";
+import { findLegalPage } from "./content/legal";
 import Home from "./pages/Home";
 import Legal from "./pages/Legal";
 
-function App() {
-  const path = window.location.pathname.replace(/\/$/, "");
-  const legalPage = legalPages.find((page) => page.path === path);
+interface AppProps {
+  path: string;
+}
+
+function App({ path }: AppProps) {
+  const legalPage = findLegalPage(path);
 
   return (
     <>

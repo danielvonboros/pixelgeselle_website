@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material";
-import { accents, colors, fonts, radius, type Accent } from "./tokens";
+import { accents, colors, fonts, layout, radius, type Accent } from "./tokens";
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -36,6 +36,7 @@ export const createAppTheme = (accent: Accent = accents.yellow) =>
         fontSize: "clamp(2.5rem, 6vw, 3.5rem)",
         lineHeight: 1.07,
         letterSpacing: "-0.02em",
+        textWrap: "balance",
       },
       h2: {
         fontFamily: fonts.display,
@@ -43,16 +44,18 @@ export const createAppTheme = (accent: Accent = accents.yellow) =>
         fontSize: "clamp(1.75rem, 4vw, 2.25rem)",
         lineHeight: 1.17,
         letterSpacing: "-0.015em",
+        textWrap: "balance",
       },
       h3: {
         fontFamily: fonts.display,
         fontWeight: 500,
         fontSize: "1.5rem",
         lineHeight: 1.25,
+        textWrap: "balance",
       },
-      subtitle1: { fontSize: "1.125rem", lineHeight: 1.6 },
-      body1: { fontSize: "1rem", lineHeight: 1.625 },
-      body2: { fontSize: "0.875rem", lineHeight: 1.5 },
+      subtitle1: { fontSize: "1.125rem", lineHeight: 1.6, textWrap: "pretty" },
+      body1: { fontSize: "1rem", lineHeight: 1.625, textWrap: "pretty" },
+      body2: { fontSize: "0.875rem", lineHeight: 1.5, textWrap: "pretty" },
       button: {
         fontFamily: fonts.display,
         fontSize: "0.875rem",
@@ -71,7 +74,11 @@ export const createAppTheme = (accent: Accent = accents.yellow) =>
             scrollBehavior: "smooth",
           },
           "::selection": { backgroundColor: colors.yellow, color: colors.ink },
-          "section[id]": { scrollMarginTop: 72 },
+          // Anchor jumps land below the sticky header; on phones it has a second line with the navigation.
+          "section[id]": {
+            scrollMarginTop: layout.headerHeight.xs + layout.mobileNavHeight + 1,
+            "@media (min-width: 900px)": { scrollMarginTop: layout.headerHeight.md },
+          },
           "main:focus": { outline: "none" },
           "a:focus-visible, button:focus-visible, [role='button']:focus-visible": {
             outline: `2px solid var(--focus-ring, ${colors.ink})`,

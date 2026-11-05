@@ -9,9 +9,9 @@ interface LegalProps {
 
 const Legal = ({ page }: LegalProps) => {
   return (
-    <Section title={page.title}>
+    <Section title={page.title} titleAs="h1">
       <Seo title={page.title} noIndex />
-      <Stack spacing={4} sx={{ maxWidth: "44rem" }}>
+      <Stack spacing={4} sx={{ maxWidth: "34rem" }}>
         {page.sections.map((section) => (
           <Stack key={section.heading} spacing={1}>
             <Typography variant="h3" component="h2" sx={{ fontSize: "1.25rem" }}>

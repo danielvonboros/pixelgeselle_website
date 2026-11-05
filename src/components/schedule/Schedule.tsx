@@ -20,7 +20,8 @@ const PIN_TOP = layout.headerHeight.md + 40;
 
 const Schedule = ({ steps, title, dayLabel, totalDays, doneLabel }: ScheduleProps) => {
   const theme = useTheme();
-  const desktop = useMediaQuery(theme.breakpoints.up("md"), { noSsr: true });
+  // No noSsr: the first render has to match the prerendered HTML, the real value follows after hydration.
+  const desktop = useMediaQuery(theme.breakpoints.up("md"));
   const reduced = useReducedMotion();
   const pinned = desktop && !reduced;
   const trackRef = useRef<HTMLDivElement>(null);

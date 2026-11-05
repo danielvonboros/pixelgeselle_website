@@ -1,6 +1,6 @@
 # Pixelgesellen
 
-Landing page for Pixelgesellen (Boros & Sanwald GbR), fixed-price websites for trades and small service businesses.
+Landing page for Pixelgesellen (owner Daniel von Boros until Boros & Sanwald GbR is founded), fixed-price websites for trades and small service businesses.
 
 <p>Client side single page application, no backend except the PHP contact form</p>
 
@@ -69,22 +69,33 @@ Reusable components:
 | `Seo`         | Sets document title and robots meta per page                       |
 | `SkipLink`    | Keyboard link that jumps past the navigation                       |
 
-There is no router. `App.tsx` matches `window.location.pathname` against the legal pages in `src/content/legal.ts` and renders `Home` otherwise.
+There is no router. `App.tsx` receives the path as a prop, matches it against the legal pages in `src/content/legal.ts` and renders `Home` otherwise.
+
+### Prerendering
+
+`yarn build` renders every route to static HTML, so the content, the styles and the meta tags arrive with the first response instead of after the JavaScript:
+
+1. `vite build` builds the client to `dist/`.
+2. `vite build --ssr src/entry-server.tsx` builds a Node version of the app to `dist-ssr/`.
+3. `scripts/prerender.js` renders `/`, `/impressum` and `/datenschutz` with `renderToString`, extracts the Emotion styles with `@emotion/server` and writes `dist/index.html`, `dist/impressum.html` and `dist/datenschutz.html`. Then it deletes `dist-ssr/`.
+
+`src/main.tsx` hydrates the prerendered markup and falls back to a normal render in `yarn dev`, where the root is empty. Code that reads `window` or `document` must therefore run in an effect, not during render, and the first render must not depend on the time, on random values or on media queries. `useMediaQuery` therefore runs without `noSsr`, so it returns the server value first and the real one right after hydration.
+
+The head (`<!--app-head-->` in `index.html`) is generated from content: title, description, canonical, robots, Open Graph and the JSON-LD in `src/content/seo.ts` read the prices from `src/content/packages.ts`, so the meta tags cannot drift from the price table.
 
 ### Before launch
 
 The first version contains placeholders that must be replaced before the site goes live:
 
-- Imprint: address, phone number and VAT ID in `src/content/legal.ts`.
-- Privacy policy: the full text in `src/content/legal.ts`, covering hosting, server logs, email contact and the booking tool.
-- Domain and email: `pixelgesellen.de` and `kontakt@pixelgesellen.de` are assumed in `src/content/site.ts`, `index.html`, `public/robots.txt` and `public/sitemap.xml`. The personal addresses `daniel@` and `alex@pixelgesellen.de` are in `src/content/about.ts`.
+- Imprint and privacy policy in `src/content/legal.ts`: written for Daniel von Boros as sole owner until the GbR is founded, then switch the provider to the GbR. The privacy policy covers all-inkl hosting and mail, server logs, email, the contact form, the cal.com link and the self-hosted fonts. Extend it before adding any other service. There is no phone number, the contact form is the second quick contact route next to email.
+- Domain and email: `pixelgesellen.de` and `kontakt@pixelgesellen.de` are assumed in `src/content/site.ts`, `public/robots.txt` and `public/sitemap.xml`. The personal addresses `daniel@` and `alex@pixelgesellen.de` are in `src/content/about.ts`.
 - Booking: the cal.com link in `src/content/site.ts`. To embed the calendar instead of linking to it, uncomment the iframe in `src/sections/booking/Booking.tsx`.
 - Contact form: create the mailbox `noreply@pixelgesellen.de` in KAS and put `contact-config.php` on the server, see Contact form below. Then send one test message from the live site.
-- Prices: the sizes S, M and L in `src/content/packages.ts` and `index.html` are starting values to calibrate after the first project. The VAT note assumes regular VAT; change it if the small business rule applies.
+- Prices: the sizes S, M and L in `src/content/packages.ts` are starting values to calibrate after the first project. The VAT note assumes regular VAT; change it if the small business rule applies.
 - Launch offer: `referenceSlotsLeft` in `src/content/packages.ts` counts the free places of the launch discount. Lower it with every new client and remove the strip when it reaches zero.
 - Hosting in the care plan: reselling webspace requires an all-inkl reseller contract.
 - Photos: the team cards show a placeholder until `photo` is set for each member in `src/content/about.ts`.
-- Examples: the four demo sites live in the `pixelgeselle-demos` repository and are linked at `https://demos.pixelgesellen.de/<site>/`. Deploy them before this site, otherwise the example links lead nowhere. The card images load from `/catalog/<site>.jpg` on the demo subdomain; until they exist, the cards show their colour and the pixel staircase. A real reference is prepared as a commented entry in `src/content/examples.ts`; activate it once the client has agreed.
+- Examples: the four demo sites live in the `pixelgeselle-demos` repository and are linked at `https://demos.pixelgesellen.de/<site>/`. Deploy them before this site, otherwise the example links lead nowhere. The card images are screenshots of the demo home pages and load from `/catalog/<site>.jpg` on the demo subdomain; until they exist, the cards show their colour and the pixel staircase. A real reference is prepared as a commented entry in `src/content/examples.ts`; activate it once the client has agreed.
 
 ### Contact form
 
@@ -92,7 +103,7 @@ The form sits in the booking section next to the calendar link. `ContactForm` lo
 
 - From `Pixelgesellen <noreply@pixelgesellen.de>`, to `kontakt@pixelgesellen.de`. Reply-To is the visitor, so answering the mail answers them.
 - Subject `Kontaktformular: <Betrieb or Name>`, plain text with name, business, email, phone and message.
-- Spam protection without third parties: a math task signed with a secret, a minimum of 3 seconds between loading the task and sending, a hidden honeypot field, a check of the Origin header and at most 5 messages per hour and connection. Nothing is stored except the hashed connection for the rate limit.
+- Spam protection without third parties: a math task signed with a secret, a minimum of 3 seconds between loading the task and sending, a hidden honeypot field, a check of the Origin header and at most 5 messages per hour and connection. Nothing is stored except the hashed connection for the rate limit, and entries older than an hour are deleted on the next submission, as the privacy policy states.
 
 The script is the same as on raumideenwerk. It reads recipient, sender and secret from `contact-config.php` one level above the web root, so the secret is never part of the repository and several domains of the account can share the file. `server/contact-config.example.php` shows the entry for this site:
 
@@ -112,6 +123,10 @@ The palette separates two accents:
 - `palette.primary` is the industry accent used by buttons and emphasis. It defaults to yellow. An industry page passes another accent from `accents` (`petrol`, `brick`) to `createAppTheme`, and nothing else changes.
 
 Yellow is a surface colour only. Text on yellow is always `ink`; yellow text on `paper` is not readable and is never used.
+
+Components may use the neutral tokens (`ink`, `paper`, `line`, …) and the brand yellow from `tokens.ts` directly, because they never change with the accent. Anything that should follow the industry accent, such as buttons and the focus glow of form fields, reads `palette.primary` from the theme instead.
+
+Headings use `text-wrap: balance` and body text `text-wrap: pretty` from the theme, so lines break evenly without manual line breaks.
 
 ### Motion
 
@@ -146,7 +161,9 @@ Both typefaces are self-hosted through Fontsource and bundled by Vite. Nothing i
 ### Dependencies
 
 <ul>
+<li>@emotion/cache</li>
 <li>@emotion/react</li>
+<li>@emotion/server</li>
 <li>@emotion/styled</li>
 <li>@fontsource/bricolage-grotesque</li>
 <li>@fontsource/figtree</li>
@@ -176,7 +193,7 @@ Dev dependencies
 
 ```
 yarn dev       start the dev server
-yarn build     typecheck and build to dist/
+yarn build     typecheck, build and prerender to dist/
 yarn lint      run ESLint
 yarn preview   serve the production build locally
 ```
@@ -195,7 +212,7 @@ Required repository secrets:
 | `SSH_HOST`        | SSH host of the all-inkl account                     |
 | `SSH_TARGET`      | Target folder on the server, e.g. `/www/htdocs/<user>/pixelgesellen.de/` |
 
-`public/.htaccess` forces HTTPS and serves `index.html` for every path that is not a file, so `/impressum` and `/datenschutz` work on Apache. `/api/contact.php` is a file and is executed by PHP. `contact-config.php` lies above the target folder and is not touched by rsync.
+`public/.htaccess` forces HTTPS, serves `/impressum` and `/datenschutz` from their prerendered `.html` files and `index.html` for every other path that is not a file. `/api/contact.php` is a file and is executed by PHP. `contact-config.php` lies above the target folder and is not touched by rsync.
 
 ### User Stories
 

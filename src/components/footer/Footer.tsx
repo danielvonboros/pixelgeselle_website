@@ -43,8 +43,9 @@ const Footer = () => {
             ))}
           </Stack>
         </Box>
-        <Typography variant="caption" component="p" sx={{ mt: 6, color: colors.line }}>
-          © {year} {site.name} · {site.legalName}
+        {/* The year is baked in at build time; a client in a later year may differ. */}
+        <Typography variant="caption" component="p" suppressHydrationWarning sx={{ mt: 6, color: colors.line }}>
+          © {year} {site.name} · {footer.owner}
         </Typography>
       </Container>
     </Box>

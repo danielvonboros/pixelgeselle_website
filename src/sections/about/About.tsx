@@ -31,7 +31,7 @@ const About = () => {
           <Stack spacing={1.25}>
             <Logo size={32} color={colors.paper} />
             <Typography variant="body2" sx={{ color: colors.line }}>
-              {company.legalName}
+              {company.owner}
             </Typography>
           </Stack>
           <Stack spacing={0.5} sx={{ alignItems: { md: "flex-end" } }}>

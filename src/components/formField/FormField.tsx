@@ -91,7 +91,7 @@ const FormField = ({
             "&:hover": { borderColor: error ? colors.brick : colors.ink },
             "&.Mui-focused": {
               borderColor: colors.ink,
-              boxShadow: `0 0 0 3px ${colors.yellow}`,
+              boxShadow: (theme) => `0 0 0 3px ${theme.palette.primary.main}`,
             },
             "& textarea": { resize: "vertical" },
             "& ::placeholder": { color: colors.inkMuted, opacity: 1 },

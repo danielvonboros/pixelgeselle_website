@@ -138,6 +138,12 @@ function checkRateLimit(array $config): void
     $file = $dir . '/' . hash('sha256', clientIp() . $config['secret']);
     $now = time();
 
+    foreach (glob($dir . '/*') ?: [] as $stale) {
+        if ((int) @filemtime($stale) < $now - RATE_WINDOW) {
+            @unlink($stale);
+        }
+    }
+
     $handle = @fopen($file, 'c+');
     if ($handle === false) {
         return;

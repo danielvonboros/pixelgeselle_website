@@ -47,6 +47,7 @@ export const layout = {
   maxWidth: 1200,
   sectionY: { xs: 64, md: 96 },
   headerHeight: { xs: 64, md: 72 },
+  mobileNavHeight: 44,
 };
 
 export const motion = {

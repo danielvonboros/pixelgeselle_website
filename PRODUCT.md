@@ -24,7 +24,7 @@ Visitors arrive from the homepage, Google, printed letters sent to businesses, a
 
 ## Capabilities and Constraints
 
-- Packages, confirmed 2026-10-29: sizes S 790 €, M 1,490 €, L 2,690 €, net, plus statutory VAT. Care plan per size 29 / 39 / 59 € per month, cancellable monthly. No rental for now (decided 2026-11-02). Two correction rounds in every package. L includes one time-saving feature; further features and extra pages are priced individually as add-ons. The first five clients get 30 % off the one-off price in return for a review and permission to show the site as a reference.
+- Packages, confirmed 2026-11-02: sizes S 990 €, M 1,690 €, L 2,990 €, net, plus statutory VAT. Care plan per size 29 / 39 / 59 € per month, cancellable monthly. No rental for now (decided 2026-11-02). Two correction rounds in every package. L includes one time-saving feature; further features and extra pages are priced individually as add-ons. The first five clients get 30 % off the one-off price in return for a review and permission to show the site as a reference.
 - Delivery: online in 14 days from the interview.
 - Photos are not included; Pixelgesellen recommends a local photographer.
 - Legal texts come from a generator or the client's lawyer; Pixelgesellen does not give legal advice.
@@ -32,7 +32,7 @@ Visitors arrive from the homepage, Google, printed letters sent to businesses, a
 
 ## Brand Commitments
 
-- Name: Pixelgesellen, run by Boros & Sanwald GbR. The yellow pixel is the brand mark. Contact: kontakt@pixelgesellen.de, personal: daniel@ and alex@pixelgesellen.de.
+- Name: Pixelgesellen, run by Daniel von Boros as sole owner until Boros & Sanwald GbR is founded. The yellow pixel is the brand mark. Contact: kontakt@pixelgesellen.de, personal: daniel@ and alex@pixelgesellen.de.
 - Voice: German, informal "du", plain words from the trades, no marketing jargon (say "bei Google gefunden werden", not "SEO" in headlines). First person plural ("wir") for the business. The team section introduces Daniel von Boros (design and build) and Alexander Sanwald (product management and consulting background) in the third person.
 
 ## Evidence on Hand
