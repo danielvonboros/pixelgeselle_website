@@ -1,6 +1,7 @@
 import { team } from "./about";
+import { provider } from "./legal";
 import { formatEuro, packageOffers, pricing, startingPrice } from "./packages";
-import { site } from "./site";
+import { SECTION_IDS, site } from "./site";
 
 const prices = packageOffers.map((offer) => offer.price);
 const startingFrom = formatEuro(startingPrice);
@@ -20,19 +21,44 @@ export const robots = (noIndex: boolean) => (noIndex ? "noindex, follow" : "inde
 export const structuredData = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
+  "@id": `${site.url}/#organization`,
   name: site.name,
   legalName: site.owner,
-  description: "Websites zum Festpreis für Handwerks- und Dienstleistungsbetriebe.",
+  description: "Webdesign und Website-Erstellung zum Festpreis für Handwerks- und Dienstleistungsbetriebe.",
   url: `${site.url}/`,
   email: site.email,
   image: seo.image.url,
-  founder: team.map((member) => ({ "@type": "Person", name: member.name })),
+  logo: `${site.url}/favicon.svg`,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: provider.street,
+    postalCode: provider.postalCode,
+    addressLocality: provider.city,
+    addressCountry: "DE",
+  },
   areaServed: { "@type": "Country", name: "Deutschland" },
+  knowsAbout: [
+    "Webdesign",
+    "Website-Erstellung",
+    "Websites für Handwerksbetriebe",
+    "Frontend-Entwicklung",
+    "Full-Stack-Entwicklung",
+    "Suchmaschinenoptimierung",
+  ],
+  founder: team.map((member) => ({ "@type": "Person", name: member.name, jobTitle: member.role })),
   priceRange: `${startingFrom} – ${formatEuro(Math.max(...prices))}`,
   makesOffer: packageOffers.map((offer) => ({
     "@type": "Offer",
     name: `Website Größe ${offer.name}`,
+    description: offer.description,
+    url: `${site.url}/#${SECTION_IDS.packages}`,
     price: String(offer.price),
     priceCurrency: "EUR",
+    priceSpecification: {
+      "@type": "PriceSpecification",
+      price: offer.price,
+      priceCurrency: "EUR",
+      valueAddedTaxIncluded: false,
+    },
   })),
 };

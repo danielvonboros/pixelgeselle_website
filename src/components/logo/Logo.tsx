@@ -11,6 +11,10 @@ interface LogoProps {
 
 const wordmark = site.name.toLowerCase();
 
+// The letters come from CSS, not DOM text: with a dotless "ı" in the text, checks for
+// label-in-name (WCAG 2.5.3) would not find "pıxelgesellen" in the link's name "Pixelgesellen".
+const glyphs = (text: string) => ({ "&::before": { content: `"${text}"` } });
+
 const Logo = ({ size = 24, color = "text.primary", animated = false }: LogoProps) => {
   return (
     <Box
@@ -29,11 +33,8 @@ const Logo = ({ size = 24, color = "text.primary", animated = false }: LogoProps
         userSelect: "none",
       }}
     >
-      <Box component="span" aria-hidden>
-        {wordmark.slice(0, 1)}
-      </Box>
-      <Box component="span" aria-hidden sx={{ position: "relative" }}>
-        ı
+      <Box component="span" aria-hidden sx={glyphs(wordmark.slice(0, 1))} />
+      <Box component="span" aria-hidden sx={{ position: "relative", ...glyphs("ı") }}>
         <Box
           component="span"
           sx={{
@@ -48,9 +49,7 @@ const Logo = ({ size = 24, color = "text.primary", animated = false }: LogoProps
           }}
         />
       </Box>
-      <Box component="span" aria-hidden>
-        {wordmark.slice(2)}
-      </Box>
+      <Box component="span" aria-hidden sx={glyphs(wordmark.slice(2))} />
     </Box>
   );
 };
