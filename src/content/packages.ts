@@ -137,8 +137,8 @@ const recommended = packageOffers.find((offer) => offer.highlighted) ?? smallest
 export const packagesIntro = {
   id: SECTION_IDS.packages,
   eyebrow: "Preise",
-  title: "Eine Website in deiner Größe.",
-  lead: "Jede Größe bekommt dieselbe Sorgfalt. Der Unterschied ist, wie viel dein Betrieb zeigen will. Du zahlst einmal, und die Website gehört dir.",
+  title: "Was kostet eine Website für Handwerker?",
+  lead: `Ab ${formatEuro(startingPrice)} netto, zum Festpreis. Jede Größe bekommt dieselbe Sorgfalt, der Unterschied ist, wie viel dein Betrieb zeigen will. Du zahlst einmal, und die Website gehört dir.`,
 };
 
 export const includedEverywhere: { title: string; items: { icon: IconName; label: string }[] } = {
@@ -155,7 +155,7 @@ export const includedEverywhere: { title: string; items: { icon: IconName; label
 
 export const sizeTable = {
   columns: { size: "Größe", content: "Was reinpasst", price: "Preis" },
-  sizeLabel: (name: string) => `Größe ${name}`,
+  sizeHeading: "Website Größe",
   badge: "Empfehlung",
   examplesLabel: "So sieht das aus:",
   price: (offer: PackageOffer) => ({

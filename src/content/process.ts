@@ -5,7 +5,7 @@ import { SECTION_IDS } from "./site";
 export const processIntro = {
   id: SECTION_IDS.process,
   eyebrow: "So läuft dein Projekt",
-  title: "Vier Schritte, und deine Seite ist online.",
+  title: "Vier Schritte, und deine neue Website ist online.",
   lead: "Du investierst rund eine Stunde deiner Zeit. Alles andere übernehmen wir und halten dich dabei auf dem Laufenden.",
 };
 

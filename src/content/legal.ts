@@ -6,12 +6,15 @@ export interface LegalPage {
   sections: { heading: string; paragraphs: string[] }[];
 }
 
-const provider = {
+export const provider = {
   owner: site.owner,
   street: "Kolonnenstraße 8",
-  city: "10827 Berlin",
+  postalCode: "10827",
+  city: "Berlin",
   vatId: "DE456695805",
 };
+
+const cityLine = `${provider.postalCode} ${provider.city}`;
 
 export const imprint: LegalPage = {
   path: "/impressum",
@@ -19,7 +22,7 @@ export const imprint: LegalPage = {
   sections: [
     {
       heading: "Angaben gemäß § 5 DDG",
-      paragraphs: [site.name, `Inhaber: ${provider.owner}`, provider.street, provider.city],
+      paragraphs: [site.name, `Inhaber: ${provider.owner}`, provider.street, cityLine],
     },
     {
       heading: "Kontakt",
@@ -51,7 +54,7 @@ export const privacy: LegalPage = {
       paragraphs: [
         "Verantwortlich für die Verarbeitung personenbezogener Daten auf dieser Website ist:",
         `${site.name}, Inhaber: ${provider.owner}`,
-        `${provider.street}, ${provider.city}`,
+        `${provider.street}, ${cityLine}`,
         `E-Mail: ${site.email}`,
       ],
     },

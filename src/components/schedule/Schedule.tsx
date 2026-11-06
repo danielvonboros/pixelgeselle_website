@@ -142,7 +142,7 @@ const Schedule = ({ steps, title, dayLabel, totalDays, doneLabel }: ScheduleProp
               textAlign: "center",
               fontSize: "0.6875rem",
               fontWeight: 500,
-              color: index <= day && !done ? colors.ink : colors.border,
+              color: index <= day && !done ? colors.ink : colors.inkMuted,
               transition: `color ${motion.duration.fast}ms`,
             }}
           >

@@ -2,6 +2,7 @@ import { Box, Button, Link, Paper, Stack, Typography } from "@mui/material";
 import Icon from "../icon/Icon";
 import PagePixels from "../pagePixels/PagePixels";
 import RollingNumber from "../rollingNumber/RollingNumber";
+import VisuallyHidden from "../visuallyHidden/VisuallyHidden";
 import { useInView } from "../../hooks/useInView";
 import { sizeColumns } from "./sizeColumns";
 import { sizeTable, type PackageOffer } from "../../content/packages";
@@ -58,9 +59,9 @@ const SizeRow = ({ offer }: SizeRowProps) => {
         <Typography
           id={titleId}
           component="h3"
-          aria-label={sizeTable.sizeLabel(offer.name)}
           sx={{ fontFamily: fonts.display, fontWeight: 500, fontSize: "4rem", lineHeight: 0.85 }}
         >
+          <VisuallyHidden>{sizeTable.sizeHeading} </VisuallyHidden>
           {offer.name}
         </Typography>
         <Stack spacing={1}>

@@ -48,8 +48,11 @@ const Hero = () => {
         }}
       >
         <Stack spacing={3}>
-          <Eyebrow sx={enter(0)}>{hero.eyebrow}</Eyebrow>
-          <AnimatedHeadline lines={hero.headline} />
+          {/* One h1 for eyebrow and slogan, so the search term in the eyebrow is part of the main heading */}
+          <Box component="h1" sx={{ m: 0, font: "inherit", display: "flex", flexDirection: "column", gap: 3 }}>
+            <Eyebrow sx={enter(0)}>{hero.eyebrow}</Eyebrow>{" "}
+            <AnimatedHeadline lines={hero.headline} component="span" />
+          </Box>
           <Typography variant="subtitle1" sx={{ color: "text.secondary", maxWidth: "36rem", ...enter(520) }}>
             {hero.lead}
           </Typography>

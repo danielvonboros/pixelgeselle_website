@@ -92,7 +92,7 @@ const ProjectCard = ({ title, category, text, tone, image, href, linkLabel, stat
               <Box
                 component="img"
                 src={image}
-                alt=""
+                alt={`Screenshot: Startseite von ${title}`}
                 loading="lazy"
                 decoding="async"
                 onError={() => setImageFailed(true)}
