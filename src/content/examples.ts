@@ -5,7 +5,7 @@ import { SECTION_IDS, site } from "./site";
 export const examplesIntro = {
   id: SECTION_IDS.examples,
   eyebrow: "Beispiele",
-  title: "So könnte deine Website aussehen.",
+  title: "Website-Beispiele für Maler, Elektriker, Dachdecker und Schreiner.",
   lead: "Vier Beispielseiten für erfundene Betriebe, gebaut wie echte Kundenprojekte. Jede hat eine eigene Gestaltung, abgestimmt auf Gewerk und Kundschaft.",
 };
 

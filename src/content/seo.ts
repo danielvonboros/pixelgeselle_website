@@ -6,8 +6,9 @@ const prices = packageOffers.map((offer) => offer.price);
 const startingFrom = formatEuro(startingPrice);
 
 export const seo = {
-  title: `Website für Handwerker zum Festpreis | ${site.name}`,
-  description: `Deine neue Website zum Festpreis ab ${startingFrom} netto, in ${pricing.deliveryDays} Tagen online: Interview, Texte, Gestaltung und Umsetzung aus einer Hand. Für Handwerks- und Dienstleistungsbetriebe in ${site.region}.`,
+  title: `Website für Handwerker erstellen lassen | ${site.name}`,
+  // Google cuts descriptions at about 155 characters.
+  description: `Wir erstellen deine Handwerker-Website zum Festpreis ab ${startingFrom} netto: Texte, Webdesign und Technik aus einer Hand, in ${pricing.deliveryDays} Tagen online.`,
   shareDescription: `Ein Interview von 30 Minuten, den Rest übernehmen wir: Texte, Gestaltung und Umsetzung. Festpreis ab ${startingFrom} netto.`,
   image: { url: `${site.url}/og.png`, width: 1200, height: 630 },
 };
