@@ -2,6 +2,7 @@ import createEmotionServer from "@emotion/server/create-instance";
 import { renderToString } from "react-dom/server";
 import Root from "./Root";
 import { notFound } from "./content/notFound";
+import { productsPage } from "./content/products";
 import { resolvePage, type ResolvedPage } from "./content/routes";
 import { pageTitle, robots, seo, structuredData } from "./content/seo";
 import { site } from "./content/site";
@@ -18,27 +19,31 @@ const escape = (value: string) =>
 
 const documentTitle = (page: ResolvedPage) => {
   if (page.kind === "legal") return pageTitle(page.page.title);
+  if (page.kind === "products") return pageTitle(productsPage.documentTitle);
   if (page.kind === "notFound") return pageTitle(notFound.documentTitle);
   return pageTitle();
 };
 
 const headTags = (path: string) => {
   const page = resolvePage(path);
-  const url = `${site.url}${page.kind === "legal" ? page.page.path : "/"}`;
+  const pagePath = page.kind === "legal" ? page.page.path : page.kind === "products" ? productsPage.path : "/";
+  const url = `${site.url}${pagePath}`;
   const title = escape(documentTitle(page));
+  const description = page.kind === "products" ? productsPage.description : seo.description;
+  const shareDescription = page.kind === "products" ? productsPage.description : seo.shareDescription;
 
   const tags = [
     `<title>${title}</title>`,
-    `<meta name="description" content="${escape(seo.description)}" />`,
+    `<meta name="description" content="${escape(description)}" />`,
     // The 404 page answers for every unknown address, so it names no canonical URL of its own.
     ...(page.kind === "notFound" ? [] : [`<link rel="canonical" href="${url}" />`]),
-    `<meta name="robots" content="${robots(page.kind !== "home")}" />`,
+    `<meta name="robots" content="${robots(page.kind === "legal" || page.kind === "notFound")}" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:locale" content="de_DE" />`,
     `<meta property="og:site_name" content="${escape(site.name)}" />`,
     `<meta property="og:url" content="${url}" />`,
     `<meta property="og:title" content="${title}" />`,
-    `<meta property="og:description" content="${escape(seo.shareDescription)}" />`,
+    `<meta property="og:description" content="${escape(shareDescription)}" />`,
     `<meta property="og:image" content="${seo.image.url}" />`,
     `<meta property="og:image:width" content="${seo.image.width}" />`,
     `<meta property="og:image:height" content="${seo.image.height}" />`,

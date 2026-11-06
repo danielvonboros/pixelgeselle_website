@@ -5,30 +5,33 @@ import { useActiveSection } from "../../hooks/useActiveSection";
 import { ctaLabel, navItems, SECTION_IDS, site } from "../../content/site";
 import { colors, effects, layout, motion } from "../../theme/tokens";
 
-const sectionIds = navItems.map((item) => item.href.split("#")[1]);
+const sectionIds = navItems.filter((item) => item.href.includes("#")).map((item) => item.href.split("#")[1]);
 
 interface NavLinksProps {
   active: string | null;
+  path: string;
   row?: boolean;
 }
 
 // row: the second header line on phones, with full-height touch targets
-const NavLinks = ({ active, row = false }: NavLinksProps) =>
+const NavLinks = ({ active, path, row = false }: NavLinksProps) =>
   navItems.map((item) => {
-    const current = active !== null && item.href.endsWith(`#${active}`);
+    const isPage = !item.href.includes("#");
+    const current = isPage ? path.replace(/\/$/, "") === item.href : active !== null && item.href.endsWith(`#${active}`);
     return (
       <Link
         key={item.href}
         href={item.href}
         underline="none"
         color="inherit"
-        aria-current={current ? "location" : undefined}
+        aria-current={current ? (isPage ? "page" : "location") : undefined}
         sx={{
           position: "relative",
           fontSize: "0.9375rem",
           fontWeight: 500,
           py: 0.5,
-          ...(row && { display: "inline-flex", alignItems: "center", minHeight: layout.mobileNavHeight, py: 0 }),
+          whiteSpace: "nowrap",
+          ...(row && { display: "inline-flex", alignItems: "center", flexShrink: 0, minHeight: layout.mobileNavHeight, py: 0 }),
           "&::after": {
             content: '""',
             position: "absolute",
@@ -43,12 +46,16 @@ const NavLinks = ({ active, row = false }: NavLinksProps) =>
           "@media (hover: hover)": { "&:hover::after": { transform: "translateX(-50%) scale(1)" } },
         }}
       >
-        {item.label}
+        {row && item.shortLabel ? item.shortLabel : item.label}
       </Link>
     );
   });
 
-const Header = () => {
+interface HeaderProps {
+  path: string;
+}
+
+const Header = ({ path }: HeaderProps) => {
   const progressRef = useRef<HTMLDivElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const active = useActiveSection(sectionIds);
@@ -100,7 +107,7 @@ const Header = () => {
             spacing={3}
             sx={{ display: { xs: "none", md: "flex" } }}
           >
-            <NavLinks active={active} />
+            <NavLinks active={active} path={path} />
           </Stack>
           <Button variant="contained" href={`/#${SECTION_IDS.booking}`} sx={{ whiteSpace: "nowrap", flexShrink: 0 }}>
             {ctaLabel}
@@ -109,8 +116,19 @@ const Header = () => {
       </Container>
       <Box sx={{ display: { xs: "block", md: "none" }, borderTop: `1px solid ${colors.line}` }}>
         <Container maxWidth={false} sx={{ maxWidth: layout.maxWidth }}>
-          <Stack component="nav" aria-label="Hauptnavigation" direction="row" sx={{ justifyContent: "space-between" }}>
-            <NavLinks active={active} row />
+          <Stack
+            component="nav"
+            aria-label="Hauptnavigation"
+            direction="row"
+            sx={{
+              justifyContent: "space-between",
+              gap: 1,
+              overflowX: "auto",
+              scrollbarWidth: "none",
+              "&::-webkit-scrollbar": { display: "none" },
+            }}
+          >
+            <NavLinks active={active} path={path} row />
           </Stack>
         </Container>
       </Box>

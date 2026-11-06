@@ -27,7 +27,7 @@ src/
   components/     reusable building blocks, one folder each
   content/        all German copy, one file per section
   hooks/          shared React hooks for motion: in view, active section, reduced motion
-  pages/          Home and Legal, composed from sections
+  pages/          Home, Products, Legal and NotFound, composed from sections
   sections/       page sections, one folder each, composed from components
   theme/          design tokens and the MUI theme
 ```
@@ -77,9 +77,19 @@ There is no router. `App.tsx` receives the path as a prop, matches it against th
 
 1. `vite build` builds the client to `dist/`.
 2. `vite build --ssr src/entry-server.tsx` builds a Node version of the app to `dist-ssr/`.
-3. `scripts/prerender.js` renders every route in `src/content/routes.ts` (`/`, `/impressum`, `/datenschutz` and the error page `/404`) with `renderToString`, extracts the Emotion styles with `@emotion/server` and writes `dist/index.html`, `dist/impressum.html`, `dist/datenschutz.html` and `dist/404.html`. It writes `dist/sitemap.xml` from the indexable routes, with the date of the deployed commit as `lastmod`. Then it deletes `dist-ssr/`.
+3. `scripts/prerender.js` renders every route in `src/content/routes.ts` (`/`, `/produkte`, `/impressum`, `/datenschutz` and the error page `/404`) with `renderToString`, extracts the Emotion styles with `@emotion/server` and writes `dist/index.html`, `dist/produkte.html`, `dist/impressum.html`, `dist/datenschutz.html` and `dist/404.html`. It writes `dist/sitemap.xml` from the indexable routes, with the date of the deployed commit as `lastmod`. Then it deletes `dist-ssr/`.
 
 A new page is a new entry in `src/content/routes.ts`; mark it `indexable` and it lands in the sitemap.
+
+### Products page
+
+`/produkte` shows what Pixelgesellen builds besides websites for trades. It is linked as „Weitere Produkte“ in the navigation, „Produkte“ in the second header row on phones. Copy and the list of products are in `src/content/products.ts`:
+
+- A yellow bar at the top leads back to the websites for trades.
+- `FeaturedProduct` puts one finished product into a full-width dark band, with a large preview and the text next to it. Today that is the winery template by Alexander Sanwald.
+- Products in progress use `ProjectCard` with a `status` instead of a link, in the same grid as the examples on the home page.
+
+The preview `src/assets/images/products/weingut.jpg` is a screenshot of the demo at 1440 × 900 without its demo banner. Take a new one when the demo changes.
 
 `src/main.tsx` hydrates the prerendered markup and falls back to a normal render in `yarn dev`, where the root is empty. Code that reads `window` or `document` must therefore run in an effect, not during render, and the first render must not depend on the time, on random values or on media queries. `useMediaQuery` therefore runs without `noSsr`, so it returns the server value first and the real one right after hydration.
 
@@ -214,7 +224,7 @@ Required repository secrets:
 | `SSH_HOST`        | SSH host of the all-inkl account                     |
 | `SSH_TARGET`      | Target folder on the server, e.g. `/www/htdocs/<user>/pixelgesellen.de/` |
 
-`public/.htaccess` sends `http://` and `www.` to `https://pixelgesellen.de` in one 301, removes trailing slashes, serves `/impressum` and `/datenschutz` from their prerendered `.html` files and answers every other unknown path with status 404 and `404.html`. It sets HSTS and caches the hashed files in `/assets/` for a year. The rules were tested against Apache 2.4; `yarn preview` does not read them and serves `index.html` for unknown paths. `/api/contact.php` is a file and is executed by PHP. `contact-config.php` lies above the target folder and is not touched by rsync.
+`public/.htaccess` sends `http://` and `www.` to `https://pixelgesellen.de` in one 301, removes trailing slashes, serves `/produkte`, `/impressum` and `/datenschutz` from their prerendered `.html` files and answers every other unknown path with status 404 and `404.html`. It sets HSTS and caches the hashed files in `/assets/` for a year. The rules were tested against Apache 2.4; `yarn preview` does not read them and serves `index.html` for unknown paths. `/api/contact.php` is a file and is executed by PHP. `contact-config.php` lies above the target folder and is not touched by rsync.
 
 ### User Stories
 

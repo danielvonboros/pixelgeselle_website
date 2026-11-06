@@ -17,10 +17,17 @@ export const site = {
   region: "ganz Deutschland",
 };
 
-export const navItems = [
+export interface NavItem {
+  href: string;
+  label: string;
+  shortLabel?: string;
+}
+
+export const navItems: NavItem[] = [
   { href: `/#${SECTION_IDS.process}`, label: "Ablauf" },
   { href: `/#${SECTION_IDS.packages}`, label: "Preise" },
   { href: `/#${SECTION_IDS.examples}`, label: "Beispiele" },
+  { href: "/produkte", label: "Weitere Produkte", shortLabel: "Produkte" },
   { href: `/#${SECTION_IDS.about}`, label: "Team" },
   { href: `/#${SECTION_IDS.faq}`, label: "Fragen" },
 ];
