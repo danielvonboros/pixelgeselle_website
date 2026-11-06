@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import type { ElementType } from "react";
 import VisuallyHidden from "../visuallyHidden/VisuallyHidden";
 import { drop, rise } from "../../theme/keyframes";
 import { colors, motion } from "../../theme/tokens";
@@ -6,13 +7,15 @@ import { colors, motion } from "../../theme/tokens";
 interface AnimatedHeadlineProps {
   lines: string[];
   delay?: number;
+  // "span" when the headline is part of a larger heading
+  component?: ElementType;
 }
 
-const AnimatedHeadline = ({ lines, delay = 120 }: AnimatedHeadlineProps) => {
+const AnimatedHeadline = ({ lines, delay = 120, component = "h1" }: AnimatedHeadlineProps) => {
   const lastLine = lines.length - 1;
 
   return (
-    <Typography variant="h1">
+    <Typography variant="h1" component={component} sx={{ display: "block" }}>
       {lines.map((line, index) => {
         const lineDelay = delay + index * motion.stagger * 1.4;
         const hasDot = line.endsWith(".");
@@ -41,6 +44,8 @@ const AnimatedHeadline = ({ lines, delay = 120 }: AnimatedHeadlineProps) => {
                 </>
               )}
             </Box>
+            {/* Collapses at the line end, but keeps the lines apart in the text crawlers read */}
+            {index < lastLine && " "}
           </Box>
         );
       })}

@@ -77,7 +77,9 @@ There is no router. `App.tsx` receives the path as a prop, matches it against th
 
 1. `vite build` builds the client to `dist/`.
 2. `vite build --ssr src/entry-server.tsx` builds a Node version of the app to `dist-ssr/`.
-3. `scripts/prerender.js` renders `/`, `/impressum` and `/datenschutz` with `renderToString`, extracts the Emotion styles with `@emotion/server` and writes `dist/index.html`, `dist/impressum.html` and `dist/datenschutz.html`. Then it deletes `dist-ssr/`.
+3. `scripts/prerender.js` renders every route in `src/content/routes.ts` (`/`, `/impressum`, `/datenschutz` and the error page `/404`) with `renderToString`, extracts the Emotion styles with `@emotion/server` and writes `dist/index.html`, `dist/impressum.html`, `dist/datenschutz.html` and `dist/404.html`. It writes `dist/sitemap.xml` from the indexable routes, with the date of the deployed commit as `lastmod`. Then it deletes `dist-ssr/`.
+
+A new page is a new entry in `src/content/routes.ts`; mark it `indexable` and it lands in the sitemap.
 
 `src/main.tsx` hydrates the prerendered markup and falls back to a normal render in `yarn dev`, where the root is empty. Code that reads `window` or `document` must therefore run in an effect, not during render, and the first render must not depend on the time, on random values or on media queries. `useMediaQuery` therefore runs without `noSsr`, so it returns the server value first and the real one right after hydration.
 
@@ -88,7 +90,7 @@ The head (`<!--app-head-->` in `index.html`) is generated from content: title, d
 The first version contains placeholders that must be replaced before the site goes live:
 
 - Imprint and privacy policy in `src/content/legal.ts`: written for Daniel von Boros as sole owner until the GbR is founded, then switch the provider to the GbR. The privacy policy covers all-inkl hosting and mail, server logs, email, the contact form, the cal.com link and the self-hosted fonts. Extend it before adding any other service. There is no phone number, the contact form is the second quick contact route next to email.
-- Domain and email: `pixelgesellen.de` and `kontakt@pixelgesellen.de` are assumed in `src/content/site.ts`, `public/robots.txt` and `public/sitemap.xml`. The personal addresses `daniel@` and `alex@pixelgesellen.de` are in `src/content/about.ts`.
+- Domain and email: `pixelgesellen.de` and `kontakt@pixelgesellen.de` are assumed in `src/content/site.ts` and `public/robots.txt`; the sitemap is generated from `site.url`. The personal addresses `daniel@` and `alex@pixelgesellen.de` are in `src/content/about.ts`.
 - Booking: the cal.com link in `src/content/site.ts`. To embed the calendar instead of linking to it, uncomment the iframe in `src/sections/booking/Booking.tsx`.
 - Contact form: create the mailbox `noreply@pixelgesellen.de` in KAS and put `contact-config.php` on the server, see Contact form below. Then send one test message from the live site.
 - Prices: the sizes S, M and L in `src/content/packages.ts` are starting values to calibrate after the first project. The VAT note assumes regular VAT; change it if the small business rule applies.
@@ -212,7 +214,7 @@ Required repository secrets:
 | `SSH_HOST`        | SSH host of the all-inkl account                     |
 | `SSH_TARGET`      | Target folder on the server, e.g. `/www/htdocs/<user>/pixelgesellen.de/` |
 
-`public/.htaccess` forces HTTPS, serves `/impressum` and `/datenschutz` from their prerendered `.html` files and `index.html` for every other path that is not a file. `/api/contact.php` is a file and is executed by PHP. `contact-config.php` lies above the target folder and is not touched by rsync.
+`public/.htaccess` sends `http://` and `www.` to `https://pixelgesellen.de` in one 301, removes trailing slashes, serves `/impressum` and `/datenschutz` from their prerendered `.html` files and answers every other unknown path with status 404 and `404.html`. It sets HSTS and caches the hashed files in `/assets/` for a year. The rules were tested against Apache 2.4; `yarn preview` does not read them and serves `index.html` for unknown paths. `/api/contact.php` is a file and is executed by PHP. `contact-config.php` lies above the target folder and is not touched by rsync.
 
 ### User Stories
 
