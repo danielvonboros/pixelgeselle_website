@@ -6,6 +6,7 @@ export interface PricingCardProps {
   name: string;
   price: string;
   priceSuffix: string;
+  priceNote?: string;
   description: string;
   features: string[];
   ctaLabel: string;
@@ -18,6 +19,7 @@ const PricingCard = ({
   name,
   price,
   priceSuffix,
+  priceNote,
   description,
   features,
   ctaLabel,
@@ -65,16 +67,23 @@ const PricingCard = ({
           {description}
         </Typography>
       </Stack>
-      <Stack direction="row" spacing={1} sx={{ alignItems: "baseline" }}>
-        <Typography
-          component="span"
-          sx={{ fontFamily: fonts.display, fontWeight: 500, fontSize: "2.5rem", lineHeight: 1 }}
-        >
-          {price}
-        </Typography>
-        <Typography component="span" variant="body2" sx={{ color: "text.secondary" }}>
-          {priceSuffix}
-        </Typography>
+      <Stack spacing={0.75}>
+        <Stack direction="row" spacing={1} sx={{ alignItems: "baseline" }}>
+          <Typography
+            component="span"
+            sx={{ fontFamily: fonts.display, fontWeight: 500, fontSize: "2.5rem", lineHeight: 1 }}
+          >
+            {price}
+          </Typography>
+          <Typography component="span" variant="body2" sx={{ color: "text.secondary" }}>
+            {priceSuffix}
+          </Typography>
+        </Stack>
+        {priceNote && (
+          <Typography variant="body2" sx={{ fontWeight: 500 }}>
+            {priceNote}
+          </Typography>
+        )}
       </Stack>
       <Stack component="ul" spacing={1.25} sx={{ m: 0, p: 0, listStyle: "none", flex: 1 }}>
         {features.map((feature) => (
@@ -86,7 +95,12 @@ const PricingCard = ({
           </Stack>
         ))}
       </Stack>
-      <Button variant={highlighted ? "contained" : "outlined"} color={highlighted ? "primary" : "inherit"} href={ctaHref} fullWidth>
+      <Button
+        variant={highlighted ? "contained" : "outlined"}
+        color={highlighted ? "primary" : "inherit"}
+        href={ctaHref}
+        fullWidth
+      >
         {ctaLabel}
       </Button>
     </Paper>

@@ -20,17 +20,31 @@ const escape = (value: string) =>
 const documentTitle = (page: ResolvedPage) => {
   if (page.kind === "legal") return pageTitle(page.page.title);
   if (page.kind === "products") return pageTitle(productsPage.documentTitle);
+  if (page.kind === "product") return pageTitle(page.product.documentTitle);
   if (page.kind === "notFound") return pageTitle(notFound.documentTitle);
   return pageTitle();
 };
 
+const pathOf = (page: ResolvedPage) => {
+  if (page.kind === "legal") return page.page.path;
+  if (page.kind === "products") return productsPage.path;
+  if (page.kind === "product") return page.product.path;
+  return "/";
+};
+
+const descriptionOf = (page: ResolvedPage) => {
+  if (page.kind === "products") return productsPage.description;
+  if (page.kind === "product") return page.product.description;
+  return undefined;
+};
+
 const headTags = (path: string) => {
   const page = resolvePage(path);
-  const pagePath = page.kind === "legal" ? page.page.path : page.kind === "products" ? productsPage.path : "/";
+  const pagePath = pathOf(page);
   const url = `${site.url}${pagePath}`;
   const title = escape(documentTitle(page));
-  const description = page.kind === "products" ? productsPage.description : seo.description;
-  const shareDescription = page.kind === "products" ? productsPage.description : seo.shareDescription;
+  const description = descriptionOf(page) ?? seo.description;
+  const shareDescription = descriptionOf(page) ?? seo.shareDescription;
 
   const tags = [
     `<title>${title}</title>`,

@@ -27,7 +27,7 @@ src/
   components/     reusable building blocks, one folder each
   content/        all German copy, one file per section
   hooks/          shared React hooks for motion: in view, active section, reduced motion
-  pages/          Home, Products, Legal and NotFound, composed from sections
+  pages/          Home, Products, ProductDetailPage, Legal and NotFound, composed from sections
   sections/       page sections, one folder each, composed from components
   theme/          design tokens and the MUI theme
 ```
@@ -60,6 +60,11 @@ Reusable components:
 | `IncludedStrip` | Row of icons with what every size includes                       |
 | `LaunchOffer` | Yellow strip with the launch discount and the free places          |
 | `AddOnList`   | Add-ons with text and price                                        |
+| `PricingCard` | Package card with price, optional monthly note, features and button; used on product detail pages |
+| `BackLinkBar` | Yellow bar with a link back, at the top of the products pages     |
+| `ProductBand` | Full-width dark band with a large preview, a link under it, text, features and a button |
+| `VideoPlayer` | Self-hosted MP4 with poster, loads only on play                    |
+| `DownloadList` | List of files to download with title, details and text           |
 | `ProjectCard` | Example or reference project with image or placeholder, tilts towards the mouse |
 | `TeamCard`    | Team member with portrait, role, background and personal email       |
 | `FaqList`     | Accordion of questions and answers                                 |
@@ -77,7 +82,7 @@ There is no router. `App.tsx` receives the path as a prop, matches it against th
 
 1. `vite build` builds the client to `dist/`.
 2. `vite build --ssr src/entry-server.tsx` builds a Node version of the app to `dist-ssr/`.
-3. `scripts/prerender.js` renders every route in `src/content/routes.ts` (`/`, `/produkte`, `/impressum`, `/datenschutz` and the error page `/404`) with `renderToString`, extracts the Emotion styles with `@emotion/server` and writes `dist/index.html`, `dist/produkte.html`, `dist/impressum.html`, `dist/datenschutz.html` and `dist/404.html`. It writes `dist/sitemap.xml` from the indexable routes, with the date of the deployed commit as `lastmod`. Then it deletes `dist-ssr/`.
+3. `scripts/prerender.js` renders every route in `src/content/routes.ts` (`/`, `/produkte`, `/produkte/weingut`, `/impressum`, `/datenschutz` and the error page `/404`) with `renderToString`, extracts the Emotion styles with `@emotion/server` and writes `dist/index.html`, `dist/produkte.html`, `dist/produkte/weingut.html`, `dist/impressum.html`, `dist/datenschutz.html` and `dist/404.html`. It writes `dist/sitemap.xml` from the indexable routes, with the date of the deployed commit as `lastmod`. Then it deletes `dist-ssr/`.
 
 A new page is a new entry in `src/content/routes.ts`; mark it `indexable` and it lands in the sitemap.
 
@@ -86,10 +91,36 @@ A new page is a new entry in `src/content/routes.ts`; mark it `indexable` and it
 `/produkte` shows what Pixelgesellen builds besides websites for trades. It is linked as „Weitere Produkte“ in the navigation, „Produkte“ in the second header row on phones. Copy and the list of products are in `src/content/products.ts`:
 
 - A yellow bar at the top leads back to the websites for trades.
-- `FeaturedProduct` puts one finished product into a full-width dark band, with a large preview and the text next to it. Today that is the winery template by Alexander Sanwald.
+- `FeaturedProduct` puts one finished product into a full-width dark band (`ProductBand`), with a large preview and the text next to it. Today that is Wein&Gut, the winery template by Alexander Sanwald. The link under the preview and the button „Zum Projekt“ lead to its detail page.
 - Products in progress use `ProjectCard` with a `status` instead of a link, in the same grid as the examples on the home page.
 
 The preview `src/assets/images/products/weingut.jpg` is a screenshot of the demo at 1440 × 900 without its demo banner. Take a new one when the demo changes.
+
+### Product detail pages
+
+`/produkte/weingut` is the detail page of Wein&Gut. `pages/ProductDetailPage.tsx` builds every detail page from one content object of type `ProductDetail` (`src/content/productDetail.ts`), so a second product only needs a new content file and an entry in `src/content/productDetails.ts`. The page shows, from top to bottom:
+
+1. A yellow bar back to all products.
+2. `ProductBand` with the preview, a link to the live demo under it and the button „Live-Demo ansehen“.
+3. `ProductParts`: website, shop and administration as `InfoCard`s.
+4. `ProductVideo`: the explainer video with its poster.
+5. `ProductPricing`: the packages Traube, Rebe and Weinberg as `PricingCard`s, then the optional service packages as `AddOnList`.
+6. `ProductDownloads`: the three PDFs.
+7. `ProductContact`: a yellow band that leads to the booking on the home page.
+
+Copy is in `src/content/weingut.ts`, prices in `src/content/weingutPricing.ts`. The prices follow the PDF „Leistungen und Kosten“; change both together.
+
+Files of the detail page live in `public/` and are copied to `dist/` unchanged:
+
+| File | Source |
+| ---- | ------ |
+| `public/downloads/wein-und-gut-shop-und-website.pdf` | Wein-und-Gut-Endkunden-Entwurf |
+| `public/downloads/wein-und-gut-verwaltung-keller.pdf` | Wein-und-Gut-Backend-Entwurf |
+| `public/downloads/wein-und-gut-leistungen-und-kosten.pdf` | Wein-und-Gut-Leistungen-und-Kosten |
+| `public/videos/wein-und-gut-keller.mp4` | Wein-und-Gut-Erklaervideo-Keller, 1920 × 1080, about 2 minutes, 9.7 MB |
+| `public/videos/wein-und-gut-keller.jpg` | Frame at 4 seconds, the poster of the video |
+
+The file names carry no version, so a new version of a PDF replaces the old file under the same name and the links stay valid. Update page count and size in `src/content/weingut.ts`. The video is part of the repository on purpose: an upload by FTP would be deleted by the next deployment, because rsync runs with `--delete`, and YouTube or Vimeo would load content from another provider, which the privacy policy rules out. The player loads nothing until play is pressed (`preload="none"`).
 
 `src/main.tsx` hydrates the prerendered markup and falls back to a normal render in `yarn dev`, where the root is empty. Code that reads `window` or `document` must therefore run in an effect, not during render, and the first render must not depend on the time, on random values or on media queries. `useMediaQuery` therefore runs without `noSsr`, so it returns the server value first and the real one right after hydration.
 
@@ -224,7 +255,7 @@ Required repository secrets:
 | `SSH_HOST`        | SSH host of the all-inkl account                     |
 | `SSH_TARGET`      | Target folder on the server, e.g. `/www/htdocs/<user>/pixelgesellen.de/` |
 
-`public/.htaccess` sends `http://` and `www.` to `https://pixelgesellen.de` in one 301, removes trailing slashes, serves `/produkte`, `/impressum` and `/datenschutz` from their prerendered `.html` files and answers every other unknown path with status 404 and `404.html`. It sets HSTS and caches the hashed files in `/assets/` for a year. The rules were tested against Apache 2.4; `yarn preview` does not read them and serves `index.html` for unknown paths. `/api/contact.php` is a file and is executed by PHP. `contact-config.php` lies above the target folder and is not touched by rsync.
+`public/.htaccess` sends `http://` and `www.` to `https://pixelgesellen.de` in one 301, removes trailing slashes, serves `/produkte`, `/produkte/weingut`, `/impressum` and `/datenschutz` from their prerendered `.html` files. The page rule comes before the folder rule, because `/produkte` is a page and also the folder of `produkte/weingut.html`; `/produkte/` redirects to `/produkte` for the same reason and answers every other unknown path with status 404 and `404.html`. It sets HSTS and caches the hashed files in `/assets/` for a year. The rules were tested against Apache 2.4; `yarn preview` does not read them and serves `index.html` for unknown paths. `/api/contact.php` is a file and is executed by PHP. `contact-config.php` lies above the target folder and is not touched by rsync.
 
 ### User Stories
 

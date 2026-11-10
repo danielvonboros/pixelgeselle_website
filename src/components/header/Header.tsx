@@ -17,7 +17,8 @@ interface NavLinksProps {
 const NavLinks = ({ active, path, row = false }: NavLinksProps) =>
   navItems.map((item) => {
     const isPage = !item.href.includes("#");
-    const current = isPage ? path.replace(/\/$/, "") === item.href : active !== null && item.href.endsWith(`#${active}`);
+    const pagePath = path.replace(/\/$/, "");
+    const current = isPage ? pagePath === item.href || pagePath.startsWith(`${item.href}/`) : active !== null && item.href.endsWith(`#${active}`);
     return (
       <Link
         key={item.href}

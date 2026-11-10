@@ -3,7 +3,7 @@
 // and writes the sitemap from the same route list.
 // Runs after `vite build` (client) and `vite build --ssr` (dist-ssr).
 import { execSync } from "node:child_process";
-import { readFile, rm, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 
 const dist = new URL("../dist/", import.meta.url);
 const server = new URL("../dist-ssr/", import.meta.url);
@@ -21,6 +21,7 @@ for (const { path } of routes) {
     .replace("<!--app-head-->", () => head)
     .replace('<div id="root"></div>', () => `<div id="root">${html}</div>`);
   const file = path === "/" ? "index.html" : `${path.slice(1)}.html`;
+  await mkdir(new URL(".", new URL(file, dist)), { recursive: true });
   await writeFile(new URL(file, dist), page);
   console.log(`prerendered ${path} -> dist/${file}`);
 }
