@@ -6,6 +6,8 @@ const careFrom = formatEuro(Math.min(...packageOffers.map((offer) => offer.careP
 
 export const faqIntro = {
   id: SECTION_IDS.faq,
+  // Section number in the eyebrow, counted in page order on the home page.
+  index: "06",
   eyebrow: "Häufige Fragen",
   title: "Was du vorher wissen willst.",
 };

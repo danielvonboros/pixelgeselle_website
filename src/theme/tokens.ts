@@ -35,12 +35,20 @@ export const accents: Record<"yellow" | "petrol" | "brick", Accent> = {
 export const fonts = {
   display: '"Bricolage Grotesque", system-ui, sans-serif',
   sans: "Figtree, system-ui, sans-serif",
+  mono: '"IBM Plex Mono", ui-monospace, monospace',
 };
 
 export const radius = {
   pixel: 0,
   md: 8,
   lg: 12,
+};
+
+// Size of the hero headline, larger than the h1 of the other pages.
+export const heroHeadline = {
+  fontSize: "clamp(2.75rem, 5.6vw, 4.75rem)",
+  letterSpacing: "-0.03em",
+  lineHeight: 1.02,
 };
 
 export const layout = {
@@ -54,7 +62,8 @@ export const motion = {
   ease: {
     out: "cubic-bezier(0.22, 1, 0.36, 1)",
     inOut: "cubic-bezier(0.65, 0, 0.35, 1)",
-    spring: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+    // Settles with a barely visible overshoot. Calm and precise, never bouncy.
+    spring: "cubic-bezier(0.25, 1.15, 0.5, 1)",
   },
   duration: {
     fast: 200,
@@ -62,4 +71,24 @@ export const motion = {
     slow: 1100,
   },
   stagger: 90,
+};
+
+// Look of the outdated example website in "Kennst du das?". Deliberately old-fashioned.
+export const oldSiteStyle = {
+  font: '"Times New Roman", Times, Georgia, serif',
+  link: "#1a0dab",
+  bannerFrom: "#1d4f91",
+  bannerTo: "#6f9bd6",
+  bannerText: "#ffffff",
+  black: "#000000",
+  rule: "#999999",
+  placeholder: "#c8c8c8",
+  counterText: "#39ff14",
+  page: "#fdfdf7",
+  text: "#333333",
+  construction: "#ffd400",
+  phone: "#1f1f1f",
+  // The old page is laid out for a desktop of this width and shrunk into the phone.
+  pageWidth: 640,
+  screenWidth: 260,
 };

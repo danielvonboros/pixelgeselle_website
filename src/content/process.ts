@@ -4,6 +4,8 @@ import { SECTION_IDS } from "./site";
 
 export const processIntro = {
   id: SECTION_IDS.process,
+  // Section number in the eyebrow, counted in page order on the home page.
+  index: "02",
   eyebrow: "So läuft dein Projekt",
   title: "Vier Schritte, und deine neue Website ist online.",
   lead: "Du investierst rund eine Stunde deiner Zeit. Alles andere übernehmen wir und halten dich dabei auf dem Laufenden.",

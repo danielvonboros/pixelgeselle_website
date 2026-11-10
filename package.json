@@ -16,6 +16,7 @@
     "@emotion/styled": "^11.14.0",
     "@fontsource/bricolage-grotesque": "^5",
     "@fontsource/figtree": "^5",
+    "@fontsource/ibm-plex-mono": "^5",
     "@mui/material": "^6.4.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

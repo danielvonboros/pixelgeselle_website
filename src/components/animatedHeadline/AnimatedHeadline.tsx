@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import type { ElementType } from "react";
 import VisuallyHidden from "../visuallyHidden/VisuallyHidden";
 import { drop, rise } from "../../theme/keyframes";
-import { colors, motion } from "../../theme/tokens";
+import { colors, heroHeadline, motion } from "../../theme/tokens";
 
 interface AnimatedHeadlineProps {
   lines: string[];
@@ -15,7 +15,7 @@ const AnimatedHeadline = ({ lines, delay = 120, component = "h1" }: AnimatedHead
   const lastLine = lines.length - 1;
 
   return (
-    <Typography variant="h1" component={component} sx={{ display: "block" }}>
+    <Typography variant="h1" component={component} sx={{ display: "block", ...heroHeadline }}>
       {lines.map((line, index) => {
         const lineDelay = delay + index * motion.stagger * 1.4;
         const hasDot = line.endsWith(".");

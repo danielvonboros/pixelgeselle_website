@@ -17,21 +17,19 @@ export const fadeIn = keyframes`
 `;
 
 export const drop = keyframes`
-  0% { opacity: 0; transform: translate3d(0, -1.4em, 0); }
-  60% { opacity: 1; transform: translate3d(0, 0.08em, 0); }
-  80% { transform: translate3d(0, -0.04em, 0); }
+  0% { opacity: 0; transform: translate3d(0, -1.2em, 0); }
+  70% { opacity: 1; transform: translate3d(0, 0.03em, 0); }
   100% { opacity: 1; transform: none; }
 `;
-
 export const hop = keyframes`
   0% { transform: none; }
-  40% { transform: translate3d(0, -8px, 0); }
+  40% { transform: translate3d(0, -4px, 0); }
   100% { transform: none; }
 `;
 
 export const pop = keyframes`
   0% { opacity: 0; transform: scale(0); }
-  60% { opacity: 1; transform: scale(1.25); }
+  60% { opacity: 1; transform: scale(1.08); }
   100% { opacity: 1; transform: none; }
 `;
 
@@ -39,4 +37,11 @@ export const pulse = keyframes`
   0% { box-shadow: 0 0 0 0 ${effects.pulse}; }
   70% { box-shadow: 0 0 0 8px ${effects.pulseFade}; }
   100% { box-shadow: 0 0 0 0 ${effects.pulseFade}; }
+`;
+
+// Moves a tall screenshot from its top to its bottom inside a frame. Combines `top` and a
+// translate of the own height, so it works without knowing the height of frame or image.
+export const scrollPage = keyframes`
+  0%, 12% { top: 0; transform: none; }
+  88%, 100% { top: 100%; transform: translate3d(0, -100%, 0); }
 `;

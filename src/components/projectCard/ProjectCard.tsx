@@ -2,6 +2,7 @@ import { Box, Link, Paper, Stack, Typography } from "@mui/material";
 import { useState, type PointerEvent } from "react";
 import Icon from "../icon/Icon";
 import PixelStairs from "../pixelStairs/PixelStairs";
+import PagePreview from "./PagePreview";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { hop } from "../../theme/keyframes";
 import { colors, effects, motion } from "../../theme/tokens";
@@ -12,12 +13,14 @@ export interface ProjectCardProps {
   text: string;
   tone: string;
   image?: string;
+  // Screenshot of the whole page, scrolled through on hover
+  pageImage?: string;
   href?: string;
   linkLabel?: string;
   status?: string;
 }
 
-const ProjectCard = ({ title, category, text, tone, image, href, linkLabel, status }: ProjectCardProps) => {
+const ProjectCard = ({ title, category, text, tone, image, pageImage, href, linkLabel, status }: ProjectCardProps) => {
   const [imageFailed, setImageFailed] = useState(false);
   const reduced = useReducedMotion();
   const showImage = Boolean(image) && !imageFailed;
@@ -42,6 +45,7 @@ const ProjectCard = ({ title, category, text, tone, image, href, linkLabel, stat
   return (
     <Box onPointerMove={tilt} onPointerLeave={settle} sx={{ height: "100%", perspective: "1100px" }}>
       <Paper
+        className="project-card"
         elevation={0}
         sx={{
           position: "relative",
@@ -100,6 +104,7 @@ const ProjectCard = ({ title, category, text, tone, image, href, linkLabel, stat
               />
             )}
           </Box>
+          {pageImage && !reduced && <PagePreview image={pageImage} alt={`Screenshot: ganze Startseite von ${title}`} />}
         </Box>
         <Stack spacing={1.5} sx={{ p: 3, flex: 1 }}>
           <Typography variant="caption" sx={{ color: "text.secondary", fontWeight: 500 }}>
