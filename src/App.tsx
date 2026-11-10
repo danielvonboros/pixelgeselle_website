@@ -5,6 +5,7 @@ import { resolvePage, type ResolvedPage } from "./content/routes";
 import Home from "./pages/Home";
 import Legal from "./pages/Legal";
 import NotFound from "./pages/NotFound";
+import ProductDetailPage from "./pages/ProductDetailPage";
 import Products from "./pages/Products";
 
 interface AppProps {
@@ -14,6 +15,7 @@ interface AppProps {
 const renderPage = (page: ResolvedPage) => {
   if (page.kind === "home") return <Home />;
   if (page.kind === "products") return <Products />;
+  if (page.kind === "product") return <ProductDetailPage product={page.product} />;
   if (page.kind === "legal") return <Legal page={page.page} />;
   return <NotFound />;
 };
