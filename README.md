@@ -26,7 +26,7 @@ src/
   assets/icons/   stroke icons as SVG, registered in index.ts
   components/     reusable building blocks, one folder each
   content/        all German copy, one file per section
-  hooks/          shared React hooks for motion: in view, active section, reduced motion
+  hooks/          shared React hooks for motion: in view, active section, reduced motion, auto cycle
   pages/          Home, Products, ProductDetailPage, Legal and NotFound, composed from sections
   sections/       page sections, one folder each, composed from components
   theme/          design tokens and the MUI theme
@@ -46,13 +46,17 @@ Reusable components:
 | `PixelSite`   | Hero visual: a browser frame in which pixels build the demo sites, see Motion |
 | `Schedule`    | Construction schedule of the process, pinned and driven by scrolling on desktop |
 | `RollingNumber` | Digits roll like a mechanical counter; used for prices, facts and days |
-| `Reveal`      | Fades and lifts its children in once they scroll into view          |
+| `Reveal`      | Fades and lifts its children in once they scroll into view; with `mask` they rise out of an invisible line, used for section titles |
 | `Magnetic`    | Pulls a call to action slightly towards the mouse                   |
 | `PixelEdge`   | Pixel staircase between two sections of different colour            |
 | `VisuallyHidden` | Text for screen readers only                                     |
-| `FactList`    | Row of short facts with icons                                      |
+| `FactList`    | Row of large numbers with a short label, the digits roll in        |
+| `Eyebrow`     | Small monospace label above a heading; with `index` it shows the section number, for example `02 —— So läuft dein Projekt` |
 | `CardGrid`    | Responsive grid for cards, 2 to 4 columns                          |
 | `InfoCard`    | Icon, title and text                                               |
+| `OldSiteSketch` | Phone showing a made-up outdated website (`OldSitePage`), with numbered markers on its defects |
+| `DefectMarker` | Square numbered marker like in an inspection report, turns yellow when active |
+| `DefectList`  | Numbered list of problems, styled as a list of defects             |
 | `StepCard`    | Numbered process step with duration                                |
 | `ModeSwitch`  | Two or more options as a sliding toggle; unused since the rental option was removed, kept for its return |
 | `SizeRow`     | One size of the price table: pages, contents, examples, price      |
@@ -65,8 +69,8 @@ Reusable components:
 | `ProductBand` | Full-width dark band with a large preview, a link under it, text, features and a button |
 | `VideoPlayer` | Self-hosted MP4 with poster, loads only on play                    |
 | `DownloadList` | List of files to download with title, details and text           |
-| `ProjectCard` | Example or reference project with image or placeholder, tilts towards the mouse |
-| `TeamCard`    | Team member with portrait, role, background and personal email       |
+| `ProjectCard` | Example or reference project with image or placeholder, tilts towards the mouse; with `pageImage` its `PagePreview` scrolls through the whole page on hover |
+| `TeamCard`    | Team member with a large photo on top, role, background and personal email |
 | `FaqList`     | Accordion of questions and answers                                 |
 | `ContactForm` | Form with math captcha and honeypot, posts to `/api/contact.php`   |
 | `FormField`   | Label, input and error message in the style of the site           |
@@ -175,16 +179,21 @@ Headings use `text-wrap: balance` and body text `text-wrap: pretty` from the the
 
 Every animation has a job: it shows how a website is built from pixels in 14 days, or it confirms an action. Durations, easings and the stagger live in `motion` in `src/theme/tokens.ts`, the keyframes in `src/theme/keyframes.ts`.
 
-- **Hero:** `PixelSite` draws a 24 × 16 grid on a canvas. The layouts of three demo sites are rectangles in `components/pixelSite/layouts.ts`. `pixelEngine.ts` moves one pixel per cell with spring physics: the first site drops in row by row, the next ones rearrange from the current pixels. A day counter runs to 14, then the frame shows "Online". The mouse pushes pixels aside. The loop pauses when the canvas is out of view or the tab is hidden, and only redraws while something moves.
+- **Hero:** `PixelSite` draws a 24 × 16 grid on a canvas. The layouts of three demo sites are rectangles in `components/pixelSite/layouts.ts`. `pixelEngine.ts` moves one pixel per cell with spring physics: the first site drops in row by row, the next ones rearrange from the current pixels. A day counter runs to 14, then the frame shows "Online" and `photoLayer.ts` turns the pixels into the real screenshot of the demo (`demos.pixelgesellen.de/catalog/<slug>.jpg`), cell by cell along a diagonal. Before the next site the screenshot breaks up again. The mouse pushes pixels aside. The loop pauses when the canvas is out of view or the tab is hidden, and only redraws while something moves.
 - **Process:** on desktop `Schedule` pins itself while the visitor scrolls through 260 % of the viewport height. Scrolling sets one CSS variable `--t` from 0 to 15; every cell of the schedule computes its fill from it in CSS, so a scroll frame costs no React render. On phones the schedule plays once when it comes into view, and all four steps are shown as cards.
+- **Problems:** the old website in the phone gets its numbered markers when the section comes into view. The list highlights one defect after another together with its marker, until the visitor points at an item.
+- **Examples:** each card has a full-page screenshot in `src/assets/images/examples/`. With a mouse it scrolls from top to bottom while the pointer is on the card; on touch screens it scrolls up and down on its own. The screenshot only loads once the card is near the viewport. When a demo changes, run `node scripts/capturePages.js raumton phase firstlinie ahrens` (macOS with Google Chrome).
+- **Section titles:** rise out of a line like the hero headline. The eyebrows number the sections of the home page in page order; the number is the `index` in each intro object in `src/content/`.
 - **Numbers:** prices, facts and the day counter use `RollingNumber`. Screen readers get the plain value.
 - **Details:** section headers and card grids reveal with a stagger, the header shows the scroll progress as a pixel bar and marks the current section, cards follow the mouse, and `PixelEdge` builds a staircase into the dark and yellow sections.
+
+Motion is calm and precise: one easing for entrances (`motion.ease.out`), `motion.ease.spring` only settles with a barely visible overshoot, and nothing bounces.
 
 `prefers-reduced-motion` is respected everywhere: the canvas shows the first site still, the schedule is shown complete, and the theme turns off all transitions, delays and loops.
 
 ### Fonts
 
-Both typefaces are self-hosted through Fontsource and bundled by Vite. Nothing is loaded from Google Fonts: embedding Google Fonts sends the visitor's IP address to Google, which German courts have ruled a GDPR violation (LG München I, 3 O 17493/20). Only the Latin subset and the weights in use are imported in `src/main.tsx`.
+Bricolage Grotesque for headings, Figtree for text and IBM Plex Mono for the small labels and section numbers (`fonts.mono`). All three typefaces are self-hosted through Fontsource and bundled by Vite. Nothing is loaded from Google Fonts: embedding Google Fonts sends the visitor's IP address to Google, which German courts have ruled a GDPR violation (LG München I, 3 O 17493/20). Only the Latin subset and the weights in use are imported in `src/main.tsx`.
 
 ### Tools used
 

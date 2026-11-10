@@ -4,6 +4,8 @@ import { SECTION_IDS, site } from "./site";
 
 export const aboutIntro = {
   id: SECTION_IDS.about,
+  // Section number in the eyebrow, counted in page order on the home page.
+  index: "05",
   eyebrow: "Wer dahintersteckt",
   title: "Zwei Gesellen, kein Callcenter.",
   lead: `Hinter den ${site.name} stehen Daniel von Boros und Alexander Sanwald. Einer kennt die Baustelle und baut deine Website, der andere bringt Struktur in jedes Projekt. Vom Erstgespräch bis zum Start hast du zwei feste Ansprechpartner.`,

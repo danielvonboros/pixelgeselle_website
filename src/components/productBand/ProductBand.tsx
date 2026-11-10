@@ -1,9 +1,10 @@
-import { Box, Button, Container, Link, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import type { ProductBandContent, ProductLink } from "../../content/productDetail";
 import Eyebrow from "../eyebrow/Eyebrow";
 import Icon from "../icon/Icon";
 import Reveal from "../reveal/Reveal";
-import { colors, effects, layout, motion, radius } from "../../theme/tokens";
+import ProductPreview from "./ProductPreview";
+import { colors, layout, motion } from "../../theme/tokens";
 
 interface ProductBandProps extends ProductBandContent {
   titleAs?: "h1" | "h2";
@@ -20,7 +21,7 @@ const ProductBand = ({
   features,
   image,
   imageLink,
-  action,
+  actions,
   note,
 }: ProductBandProps) => {
   return (
@@ -41,52 +42,7 @@ const ProductBand = ({
         }}
       >
         <Reveal>
-          <Stack spacing={2}>
-            <Link
-              href={imageLink.href}
-              {...linkTarget(imageLink)}
-              tabIndex={-1}
-              aria-hidden
-              sx={{
-                display: "block",
-                overflow: "hidden",
-                borderRadius: `${radius.md}px`,
-                border: `1px solid ${colors.inkRaised}`,
-                boxShadow: effects.shadow,
-                "& img": { transition: `transform ${motion.duration.slow}ms ${motion.ease.out}` },
-                "&:hover img": { transform: "scale(1.02)" },
-              }}
-            >
-              <Box
-                component="img"
-                src={image}
-                alt=""
-                width={1440}
-                height={900}
-                loading="lazy"
-                decoding="async"
-                sx={{ display: "block", width: "100%", height: "auto" }}
-              />
-            </Link>
-            <Link
-              href={imageLink.href}
-              {...linkTarget(imageLink)}
-              underline="hover"
-              color="inherit"
-              sx={{
-                alignSelf: "flex-start",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 1,
-                fontWeight: 500,
-                "& svg": { transition: `transform ${motion.duration.fast}ms ${motion.ease.out}` },
-                "&:hover svg": { transform: "translateX(4px)" },
-              }}
-            >
-              {imageLink.label}
-              <Icon name="arrowRight" size={18} />
-            </Link>
-          </Stack>
+          <ProductPreview image={image} link={imageLink} />
         </Reveal>
         <Reveal delay={motion.stagger}>
           <Stack spacing={3} sx={{ alignItems: "flex-start" }}>
@@ -107,15 +63,21 @@ const ProductBand = ({
                 </Box>
               ))}
             </Stack>
-            <Button
-              variant="contained"
-              size="large"
-              href={action.href}
-              {...linkTarget(action)}
-              endIcon={<Icon name="arrowRight" size={18} />}
-            >
-              {action.label}
-            </Button>
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={1.5} sx={{ alignSelf: { xs: "stretch", sm: "flex-start" } }}>
+              {actions.map((action) => (
+                <Button
+                  key={action.href}
+                  variant="contained"
+                  size="large"
+                  href={action.href}
+                  {...linkTarget(action)}
+                  endIcon={<Icon name="arrowRight" size={18} />}
+                  sx={action.tone === "light" ? { bgcolor: colors.paper, color: colors.ink, "&:hover": { bgcolor: colors.card } } : undefined}
+                >
+                  {action.label}
+                </Button>
+              ))}
+            </Stack>
             {note && (
               <Typography variant="caption" sx={{ color: colors.line }}>
                 {note}

@@ -1,10 +1,11 @@
 import { Box, Stack } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import RollingNumber from "../rollingNumber/RollingNumber";
 import { useReducedMotion } from "../../hooks/useReducedMotion";
 import { fadeIn, pulse } from "../../theme/keyframes";
 import { colors, effects, fonts, motion, radius } from "../../theme/tokens";
 import { pixelLayouts, type PixelSiteId } from "./layouts";
+import { createPhotoLayer } from "./photoLayer";
 import { createPixelEngine, type PixelEngineStatus } from "./pixelEngine";
 
 export interface PixelSiteEntry {
@@ -12,6 +13,8 @@ export interface PixelSiteEntry {
   name: string;
   trade: string;
   address: string;
+  // Screenshot of the finished demo. The pixels turn into it once the site is "online".
+  image: string;
 }
 
 interface PixelSiteProps {
@@ -22,13 +25,15 @@ interface PixelSiteProps {
   dimensionLabel: string;
 }
 
-const HOLD_SECONDS = 4.8;
+const HOLD_SECONDS = 6;
 
 const PixelSite = ({ sites, days, dayLabel, onlineLabel, dimensionLabel }: PixelSiteProps) => {
   const reduced = useReducedMotion();
   const frameRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const photoCanvasRef = useRef<HTMLCanvasElement>(null);
+  const photoLayerRef = useRef<ReturnType<typeof createPhotoLayer> | null>(null);
   const [status, setStatus] = useState<PixelEngineStatus>({ site: 0, day: 0 });
   const siteKey = sites.map((site) => site.id).join("|");
 
@@ -36,7 +41,8 @@ const PixelSite = ({ sites, days, dayLabel, onlineLabel, dimensionLabel }: Pixel
     const frame = frameRef.current;
     const stage = stageRef.current;
     const canvas = canvasRef.current;
-    if (!frame || !stage || !canvas) return;
+    const photoCanvas = photoCanvasRef.current;
+    if (!frame || !stage || !canvas || !photoCanvas) return;
 
     const engine = createPixelEngine(canvas, {
       layouts: siteKey.split("|").map((id) => pixelLayouts[id as PixelSiteId]),
@@ -45,10 +51,15 @@ const PixelSite = ({ sites, days, dayLabel, onlineLabel, dimensionLabel }: Pixel
       reduced,
       onStatus: setStatus,
     });
+    const photoLayer = createPhotoLayer(photoCanvas, { reduced });
+    photoLayerRef.current = photoLayer;
 
     let visible = false;
     const sync = () => (visible && !document.hidden ? engine.start() : engine.stop());
-    const resizeObserver = new ResizeObserver(([entry]) => engine.resize(entry.contentRect.width));
+    const resizeObserver = new ResizeObserver(([entry]) => {
+      engine.resize(entry.contentRect.width);
+      photoLayer.resize(entry.contentRect.width);
+    });
     const viewObserver = new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       sync();
@@ -67,6 +78,8 @@ const PixelSite = ({ sites, days, dayLabel, onlineLabel, dimensionLabel }: Pixel
 
     return () => {
       engine.stop();
+      photoLayer.stop();
+      photoLayerRef.current = null;
       resizeObserver.disconnect();
       viewObserver.disconnect();
       document.removeEventListener("visibilitychange", sync);
@@ -74,6 +87,29 @@ const PixelSite = ({ sites, days, dayLabel, onlineLabel, dimensionLabel }: Pixel
       frame.removeEventListener("pointerleave", leave);
     };
   }, [siteKey, days, reduced]);
+
+  // Load the screenshots once, so they are ready when the first site goes online.
+  const imageKey = sites.map((site) => site.image).join("|");
+  const images = useMemo(
+    () =>
+      typeof window === "undefined"
+        ? []
+        : imageKey.split("|").map((source) => {
+            const image = new Image();
+            image.decoding = "async";
+            image.src = source;
+            return image;
+          }),
+    [imageKey],
+  );
+
+  useEffect(() => {
+    const photoLayer = photoLayerRef.current;
+    const image = images[status.site];
+    if (!photoLayer || !image) return;
+    if (status.day === null) photoLayer.show(image);
+    else photoLayer.hide();
+  }, [images, status]);
 
   const current = sites[status.site] ?? sites[0];
   const online = status.day === null;
@@ -124,6 +160,11 @@ const PixelSite = ({ sites, days, dayLabel, onlineLabel, dimensionLabel }: Pixel
         </Stack>
         <Box ref={stageRef} sx={{ position: "relative", aspectRatio: "3 / 2", m: { xs: 1.5, sm: 2 } }}>
           <Box component="canvas" ref={canvasRef} sx={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block" }} />
+          <Box
+            component="canvas"
+            ref={photoCanvasRef}
+            sx={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block", pointerEvents: "none" }}
+          />
         </Box>
         <Stack
           direction="row"

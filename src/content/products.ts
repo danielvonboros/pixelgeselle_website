@@ -1,7 +1,7 @@
 import weingutPreview from "../assets/images/products/weingut.jpg";
 import type { ProjectCardProps } from "../components/projectCard/ProjectCard";
 import type { ProductBandContent } from "./productDetail";
-import { weingutPath } from "./weingut";
+import { weingutDemoUrl, weingutPath } from "./weingut";
 import { colors } from "../theme/tokens";
 
 export const productsPage = {
@@ -29,7 +29,10 @@ export const featuredProduct: ProductBandContent = {
   ],
   image: weingutPreview,
   imageLink: { href: weingutPath, label: "Video, Preise und Unterlagen ansehen" },
-  action: { href: weingutPath, label: "Zum Projekt" },
+  actions: [
+    { href: weingutPath, label: "Details" },
+    { href: weingutDemoUrl, label: "Demo starten", external: true, tone: "light" },
+  ],
   note: "Entwickelt von Alexander Sanwald.",
 };
 

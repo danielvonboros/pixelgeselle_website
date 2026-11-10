@@ -1,5 +1,6 @@
 import type { IconName } from "../assets/icons";
-import { SECTION_IDS, site } from "./site";
+import { demoUrl } from "./demos";
+import { SECTION_IDS } from "./site";
 
 export type PackageId = "s" | "m" | "l";
 export type FeatureId = "booking" | "calculator" | "careers";
@@ -44,7 +45,6 @@ export const pricing = {
   referenceSlotsLeft: 5,
 };
 
-const demo = (slug: string) => `${site.demosUrl}/${slug}/`;
 
 export const packageOffers: PackageOffer[] = [
   {
@@ -56,7 +56,7 @@ export const packageOffers: PackageOffer[] = [
     scope: "Bis 3 Seiten",
     description: "Für Betriebe, die schnell und sauber online sein wollen.",
     features: ["Startseite, Leistungen und Kontakt", "Google-Unternehmensprofil geprüft"],
-    examples: [{ label: "Raumton, Maler aus Berlin", href: demo("raumton") }],
+    examples: [{ label: "Raumton, Maler aus Berlin", href: demoUrl("raumton") }],
     includedFeatures: 0,
     googleProfileIncluded: false,
   },
@@ -77,8 +77,8 @@ export const packageOffers: PackageOffer[] = [
       "Google-Unternehmensprofil eingerichtet",
     ],
     examples: [
-      { label: "Phase, Elektriker aus Köln", href: demo("phase") },
-      { label: "Firstlinie, Dachdecker aus Hamburg", href: demo("firstlinie") },
+      { label: "Phase, Elektriker aus Köln", href: demoUrl("phase") },
+      { label: "Firstlinie, Dachdecker aus Hamburg", href: demoUrl("firstlinie") },
     ],
     includedFeatures: 0,
     googleProfileIncluded: true,
@@ -99,7 +99,7 @@ export const packageOffers: PackageOffer[] = [
       "Mehrere Standorte oder Gewerke",
       "Eigene Seiten für die Orte in deinem Einzugsgebiet",
     ],
-    examples: [{ label: "Werkstatt Ahrens, Schreiner aus München", href: demo("ahrens") }],
+    examples: [{ label: "Werkstatt Ahrens, Schreiner aus München", href: demoUrl("ahrens") }],
     includedFeatures: 1,
     googleProfileIncluded: true,
   },
@@ -136,6 +136,8 @@ const recommended = packageOffers.find((offer) => offer.highlighted) ?? smallest
 
 export const packagesIntro = {
   id: SECTION_IDS.packages,
+  // Section number in the eyebrow, counted in page order on the home page.
+  index: "03",
   eyebrow: "Preise",
   title: "Was kostet eine Website für Handwerker?",
   lead: `Ab ${formatEuro(startingPrice)} netto, zum Festpreis. Jede Größe bekommt dieselbe Sorgfalt, der Unterschied ist, wie viel dein Betrieb zeigen will. Du zahlst einmal, und die Website gehört dir.`,

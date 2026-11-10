@@ -2,6 +2,8 @@ import { SECTION_IDS, site } from "./site";
 
 export const bookingIntro = {
   id: SECTION_IDS.booking,
+  // Section number in the eyebrow, counted in page order on the home page.
+  index: "07",
   eyebrow: "Kostenloses Erstgespräch",
   title: "15 Minuten, die sich lohnen.",
   lead: "Buch dir direkt einen Termin oder schreib uns, worum es geht. Wir klären, was dein Betrieb braucht, und du bekommst danach ein verbindliches Angebot. Kein Verkaufsgespräch, keine Verpflichtung.",

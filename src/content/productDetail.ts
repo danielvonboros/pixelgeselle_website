@@ -7,6 +7,16 @@ export interface ProductLink {
   external?: boolean;
 }
 
+export interface ProductAction extends ProductLink {
+  tone?: "brand" | "light";
+}
+
+export interface ProductImageLink {
+  href: string;
+  label?: string;
+  external?: boolean;
+}
+
 export interface ProductBandContent {
   headingId: string;
   eyebrow: string;
@@ -14,8 +24,8 @@ export interface ProductBandContent {
   text: string;
   features: string[];
   image: string;
-  imageLink: ProductLink;
-  action: ProductLink;
+  imageLink?: ProductImageLink;
+  actions: ProductAction[];
   note?: string;
 }
 

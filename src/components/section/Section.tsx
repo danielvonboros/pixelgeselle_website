@@ -9,6 +9,8 @@ type SectionBackground = "paper" | "card" | "ink" | "brand";
 interface SectionProps {
   id?: string;
   eyebrow?: string;
+  // Section number shown in front of the eyebrow, for example "02"
+  index?: string;
   title?: string;
   // h1 when the section is the whole page, as on the legal pages
   titleAs?: "h1" | "h2";
@@ -27,6 +29,7 @@ const backgrounds: Record<SectionBackground, { bg: string; ink: string; muted: s
 const Section = ({
   id,
   eyebrow,
+  index,
   title,
   titleAs = "h2",
   lead,
@@ -56,13 +59,13 @@ const Section = ({
           <Stack spacing={2} sx={{ maxWidth: "48rem", mb: children ? 6 : 0 }}>
             {eyebrow && (
               <Reveal distance={12}>
-                <Eyebrow color={surface.muted} pixel={surface.pixel}>
+                <Eyebrow index={index} indexColor={surface.ink} color={surface.muted} pixel={surface.pixel}>
                   {eyebrow}
                 </Eyebrow>
               </Reveal>
             )}
             {title && (
-              <Reveal delay={motion.stagger}>
+              <Reveal mask delay={motion.stagger}>
                 <Typography variant="h2" component={titleAs}>
                   {title}
                 </Typography>

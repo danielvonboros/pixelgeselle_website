@@ -25,8 +25,7 @@ export const weingut: ProductDetail = {
       "Am Rechner, Tablet und Handy",
     ],
     image: weingutPreview,
-    imageLink: { href: weingutDemoUrl, label: "Live-Demo öffnen", external: true },
-    action: { href: weingutDemoUrl, label: "Live-Demo ansehen", external: true },
+    actions: [{ href: weingutDemoUrl, label: "Live-Demo ansehen", external: true }],
     note: "Entwickelt von Alexander Sanwald. Die Demo nimmt keine echten Bestellungen an.",
   },
   parts: {
