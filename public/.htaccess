@@ -1,4 +1,7 @@
 Options -Indexes
+# /produkte is a page and also the folder of produkte/weingut.html. Without this, Apache would add a slash
+# to /produkte and the rule below would remove it again, an endless redirect.
+DirectorySlash Off
 RewriteEngine On
 
 # One host for search engines: http and www both end on https://pixelgesellen.de in a single redirect
